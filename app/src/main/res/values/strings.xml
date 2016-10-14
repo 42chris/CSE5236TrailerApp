@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MovieTrailer</string>
+    <string name="login_button">Login</string>
+    <string name="success_prompt">Success!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="con_password">Confirm Password</string>
+    <string name="new_account">No Account yet? Create One</string>
+    <string name="create_button">Create</string>
+    <string name="watch_button">Watch</string>
+    <string name="genre_string">Genre</string>
+</resources>
