@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MovieTrailer</string>
     <string name="login_button">Login</string>
-    <string name="success_prompt">Success!</string>
+    <string name="success_prompt">Success</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="con_password">Confirm Password</string>
