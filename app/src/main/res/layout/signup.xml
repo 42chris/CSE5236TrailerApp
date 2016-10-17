@@ -37,7 +37,8 @@
         android:gravity="left"
         android:hint="@string/password"
         android:singleLine="true"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:inputType="textPassword">
 
     </EditText>
 
@@ -49,7 +50,8 @@
         android:hint="@string/con_password"
         android:singleLine="true"
         android:layout_marginBottom="15dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:inputType="textPassword">
 
     </EditText>
 
