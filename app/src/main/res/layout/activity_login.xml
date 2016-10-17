@@ -34,8 +34,12 @@
         android:hint="@string/password"
         android:singleLine="true"
         android:layout_marginBottom="15dp"
+<<<<<<< HEAD
         android:inputType="textPassword"
         android:password="false" />
+=======
+        android:password="true" />
+>>>>>>> origin/master
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

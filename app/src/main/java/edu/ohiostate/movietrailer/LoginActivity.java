@@ -23,7 +23,7 @@ public class LoginActivity extends Activity {
 
     LoginDataBaseAdapter mLoginDataBaseAdapter;
 
-    private static final String TAG = "QuizActivity";
+    private static final String TAG = "LoginActivity";
 
 //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),

@@ -8,6 +8,8 @@ import android.util.Log;
 
 public class LoginDatabaseHelper extends SQLiteOpenHelper
 {
+
+    private static final String TAG = "LoginDatabaseHelper";
     public LoginDatabaseHelper(Context context, String name,CursorFactory factory, int version)
     {
         super(context, name, factory, version);
