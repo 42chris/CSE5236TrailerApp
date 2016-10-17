@@ -6,6 +6,7 @@ package edu.ohiostate.movietrailer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +16,13 @@ public class CreateAccountActivity extends Activity
 {
     EditText editTextUserName,editTextPassword,editTextConfirmPassword;
     Button btnCreateAccount;
-
+    private static final String TAG = "CreateAccountActivity";
     LoginDataBaseAdapter loginDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.signup);
 
         // get Instance  of Database Adapter
@@ -70,5 +72,30 @@ public class CreateAccountActivity extends Activity
         super.onDestroy();
 
         loginDataBaseAdapter.close();
+        Log.d(TAG,"onDestroy() called");
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG,"onStart() called");
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG,"onPause() called");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG,"onResume() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG,"onStop() called");
+    }
+
+
 }
