@@ -10,12 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenuActivity extends Activity {
 
-    private Button mnewTrailerButton;
+    private ImageButton mnewTrailerButton;
     private Button msettingsButton;
 
     private static final String TAG = "MainMenuActivity";
@@ -27,9 +28,9 @@ public class MainMenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) (MainMenu) called");
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.gallery_or_create);
 
-        mnewTrailerButton = (Button)findViewById(R.id.new_trailer_button);
+        mnewTrailerButton = (ImageButton)findViewById(R.id.create_button);
         msettingsButton = (Button)findViewById(R.id.settings_button);
         mnewTrailerButton.setOnClickListener(new View.OnClickListener() {
             @Override

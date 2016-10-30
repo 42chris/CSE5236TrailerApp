@@ -19,13 +19,11 @@
         <activity
             android:name=".CreateAccountActivity"/>
         <activity
-<<<<<<< Updated upstream
             android:name=".MainMenuActivity"/>
-=======
+        <activity
             android:name=".ChoiceActivity"/>
         <activity
             android:name=".ChooseGenreActivity"/>
->>>>>>> Stashed changes
     </application>
 
 </manifest>

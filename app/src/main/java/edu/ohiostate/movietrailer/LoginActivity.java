@@ -60,13 +60,12 @@ public class LoginActivity extends Activity {
 
                 if (password.equals(storedPassword)){
                     Toast.makeText(LoginActivity.this,"Successful Login",Toast.LENGTH_LONG).show();
-<<<<<<< Updated upstream
                     Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
                     startActivity(intentMainMenu);
-=======
+/*
                     Intent intentCreateAccount = new Intent(getApplicationContext(),ChoiceActivity.class);
                     startActivity(intentCreateAccount);
->>>>>>> Stashed changes
+>>>>>>> Stashed changes*/
                 }
                 else{
                     Toast.makeText(LoginActivity.this,"Username and Password do not match",Toast.LENGTH_LONG).show();
