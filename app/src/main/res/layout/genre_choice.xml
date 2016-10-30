@@ -15,38 +15,22 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:gravity="left"
-        android:hint="@string/create_button"
+        android:text="@string/genre_string"
         android:singleLine="true" />
+
     <ImageButton
         android:id="@+id/create_button"
         android:layout_width="151dp"
         android:layout_height="112dp"
         android:padding="20dp"
         android:src="@mipmap/scissors"
-        android:layout_gravity="center_horizontal"
         android:background="?attr/colorBackgroundFloating"
         android:elevation="0dp"
-        android:scaleType="centerCrop"
-        android:layout_weight="0.05" />
-    <TextView
+        android:scaleType="centerCrop" />
 
-        android:textCursorDrawable="@null"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:gravity="left"
-        android:hint="@string/watch_button"
-        android:singleLine="true" />
-    <ImageButton
-        android:id="@+id/watch_button"
-        android:layout_width="182dp"
-        android:layout_height="112dp"
-        android:padding="20dp"
-        android:src="@mipmap/clapper_logo"
-        android:layout_gravity="center_horizontal"
-        android:background="?attr/colorBackgroundFloating"
-        android:elevation="0dp"
-        android:scaleType="centerCrop"
-        android:layout_weight="0.03" />
+        android:id="@+id/spinner" />
 
 </LinearLayout>

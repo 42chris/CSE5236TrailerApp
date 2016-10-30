@@ -9,4 +9,12 @@
     <string name="create_button">Create</string>
     <string name="watch_button">Watch</string>
     <string name="genre_string">Genre</string>
+
+    <string-array name="genre_array">
+        <item>Action</item>
+        <item>Rom-Com</item>
+    </string-array>
+
+
+
 </resources>

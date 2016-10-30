@@ -16,6 +16,7 @@ public class LoginDataBaseAdapter
     // SQL Statement to create a new database.
     static final String DATABASE_CREATE = "create table "+"LOGIN"+
             "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text,PASSWORD text); ";
+
     // Variable to hold the database instance
     public  SQLiteDatabase db;
     // Context of the application using the database.
@@ -84,5 +85,17 @@ public class LoginDataBaseAdapter
 
         String where="USERNAME = ?";
         db.update("LOGIN",updatedValues, where, new String[]{userName});
+    }
+
+    static final String TEMPLATE_CREATE = "create table "+"TEMPLATE"+
+            "( " +"ID"+" integer primary key autoincrement,"+ "GENRE  text,PROMPT1 text,PROMPT2 text, PROMPT3 text, CLIPS text); ";
+
+    public void populateTemplate(){
+        ContentValues newValues = new ContentValues();
+        // Assign values for each row.
+
+        // Insert the row into your table
+        db.insert("LOGIN", null, newValues);
+        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
     }
 }
