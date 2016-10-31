@@ -94,6 +94,9 @@ public class LoginDataBaseAdapter
         ContentValues newValues = new ContentValues();
         // Assign values for each row.
 
+
+        newValues.put("GENRE", "Action");
+        //newValues.put("PROMPT1",password);
         // Insert the row into your table
         db.insert("LOGIN", null, newValues);
         ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();

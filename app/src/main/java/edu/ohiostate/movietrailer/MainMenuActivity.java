@@ -36,8 +36,11 @@ public class MainMenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainMenuActivity.this,"Create new video",Toast.LENGTH_LONG).show();
-                Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                startActivity(video_intent);
+                //Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                //startActivity(video_intent);
+
+                Intent intentCreateAccount = new Intent(getApplicationContext(),ChooseGenreActivity.class);
+                startActivity(intentCreateAccount);
             }
         });
 

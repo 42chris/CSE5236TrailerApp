@@ -6,22 +6,25 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class LoginDatabaseHelper extends SQLiteOpenHelper
+public class SSDatabaseHelper extends SQLiteOpenHelper
 {
 
-    private static final String TAG = "LoginDatabaseHelper";
-    public LoginDatabaseHelper(Context context, String name,CursorFactory factory, int version)
+    private static final String TAG = "SSDatabaseHelper";
+    public SSDatabaseHelper(Context context, String name, CursorFactory factory, int version)
     {
         super(context, name, factory, version);
+
     }
     // Called when no database exists in disk and the helper class needs
     // to create a new one.
     @Override
-    public void onCreate(SQLiteDatabase _db)
-    {
-        _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
+public void onCreate(SQLiteDatabase _db)
+{
+    _db.execSQL(SSDataBaseAdapter.CLIPS_TEST_CREATE);
+    _db.execSQL(SSDataBaseAdapter.TEMPLATE_CREATE);
+    _db.execSQL(SSDataBaseAdapter.PROMPT_TEST_CREATE);
 
-    }
+}
     // Called when there is a database version mismatch meaning that the version
     // of the database on disk needs to be upgraded to the current version.
     @Override
@@ -35,6 +38,8 @@ public class LoginDatabaseHelper extends SQLiteOpenHelper
         // values.
         // The simplest case is to drop the old table and create a new one.
         _db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
+        _db.execSQL("DROP TABLE IF EXISTS " + "c1");
+        //_db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
         // Create a new one.
         onCreate(_db);
     }

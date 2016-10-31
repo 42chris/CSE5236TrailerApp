@@ -8,31 +8,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.Serializable;
 
 /**
  * Created by andrewpetrilla on 10/29/16.
  */
 
-public class ChooseGenreActivity extends Activity {
+public class ChooseActorsActivity extends Activity {
 
 
     Spinner spinner;
     private Button mGoButton;
-    private String genre;
+    private int numActors;
     private Template movieTemplate;
-
-    public static final String MOVIE_TEMPLATE = "MyMovie";
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     SSDataBaseAdapter mSSDataBaseAdapter;
 
-    private static final String TAG = "ChooseGenreActivity";
+    private static final String TAG = "ChooseActorsActivity";
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
@@ -43,9 +36,12 @@ public class ChooseGenreActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
-        setContentView(R.layout.genre_choice);
+        setContentView(R.layout.num_actors);
+        numActors = 0;
+        //Get movie template from Genre activity
+        movieTemplate = (Template) getIntent().getSerializableExtra(ChooseGenreActivity.MOVIE_TEMPLATE);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinnerActor);
         mGoButton = (Button)findViewById(R.id.go_button);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -62,7 +58,7 @@ public class ChooseGenreActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     mGoButton.setEnabled(true);
-                    genre = spinner.getSelectedItem().toString().toLowerCase();
+                    numActors = Integer.parseInt(spinner.getSelectedItem().toString());
             }
 
             @Override
@@ -74,11 +70,10 @@ public class ChooseGenreActivity extends Activity {
         mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movieTemplate = new Template(genre,mSSDataBaseAdapter);
-                movieTemplate.setClipArray();
-                Intent intentChooseActors = new Intent(getApplicationContext(),ChooseActorsActivity.class);
-                intentChooseActors.putExtra(MOVIE_TEMPLATE,(Serializable)movieTemplate);
-                startActivity(intentChooseActors);
+                movieTemplate.setPromptArray(numActors);
+                Intent intentProcessing = new Intent(getApplicationContext(),ProcessingActivity.class);
+                intentProcessing.putExtra(ChooseGenreActivity.MOVIE_TEMPLATE,movieTemplate);
+                startActivity(intentProcessing);
             }
         });
 

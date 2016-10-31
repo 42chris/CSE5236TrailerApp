@@ -9,10 +9,19 @@
     <string name="create_button">Create</string>
     <string name="watch_button">Watch</string>
     <string name="genre_string">Genre</string>
+    <string name="go_button">Go</string>
+    <string name="actor_number"># Of Actors</string>
+    <string name="processing">Processing...</string>
 
     <string-array name="genre_array">
         <item>Action</item>
         <item>Rom-Com</item>
+    </string-array>
+
+    <string-array name="actor_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
 
