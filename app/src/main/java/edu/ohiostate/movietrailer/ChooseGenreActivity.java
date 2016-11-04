@@ -77,7 +77,10 @@ public class ChooseGenreActivity extends Activity {
                 movieTemplate = new Template(genre,mSSDataBaseAdapter);
                 movieTemplate.setClipArray();
                 Intent intentChooseActors = new Intent(getApplicationContext(),ChooseActorsActivity.class);
-                intentChooseActors.putExtra(MOVIE_TEMPLATE,(Serializable)movieTemplate);
+                Bundle chooseActorsBundle = new Bundle();
+                chooseActorsBundle.putSerializable(MOVIE_TEMPLATE, movieTemplate);
+                intentChooseActors.putExtras(chooseActorsBundle);
+                //intentChooseActors.putExtra(MOVIE_TEMPLATE,(Serializable)movieTemplate);
                 startActivity(intentChooseActors);
             }
         });

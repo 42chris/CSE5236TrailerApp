@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.Serializable;
+
 public class SSDatabaseHelper extends SQLiteOpenHelper
 {
 

@@ -25,6 +25,8 @@
         <activity
             android:name=".ChoiceActivity"/>
         <activity
+            android:name=".ChooseActorsActivity"/>
+        <activity
             android:name=".ChooseGenreActivity"/>
     </application>
 

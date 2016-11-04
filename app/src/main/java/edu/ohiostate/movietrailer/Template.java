@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.googlecode.mp4parser.authoring.tracks.H263TrackImpl;
 
+import java.io.IOException;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -20,6 +22,39 @@ public class Template implements Serializable{
     ArrayList<Clip> clipArray;
     SSDataBaseAdapter mSSDataBaseAdapter;
 
+
+    private void writeObject(java.io.ObjectOutputStream out)
+        throws IOException
+    {
+        out.writeObject(genre);
+        out.writeInt(numPlayers);
+        out.writeObject(promptArray);
+        out.writeObject(clipArray);
+        out.flush();
+    }
+
+    private void readObject(java.io.ObjectInputStream in)
+        throws IOException, ClassNotFoundException
+    {
+        /*
+        clipArray = (ArrayList<Clip>)in.readObject();
+        promptArray = (ArrayList<Prompt>)in.readObject();
+        numPlayers = in.read();
+        genre = (String)in.readObject();
+        */
+        genre = (String)in.readObject();
+        numPlayers = in.readInt();
+        promptArray = (ArrayList<Prompt>)in.readObject();
+        clipArray = (ArrayList<Clip>)in.readObject();
+    }
+
+    private void readObjectNoData()
+        throws ObjectStreamException
+    {
+    }
+
+
+
     public Template(String genre, SSDataBaseAdapter db){
         this.genre = genre;
         this.clipArray= new ArrayList<Clip>();
@@ -28,12 +63,12 @@ public class Template implements Serializable{
     }
 
 
-    public void setPromptArray(int numPlayers){
+    public void setPromptArray(int numPlayers, SSDataBaseAdapter db){
         this.numPlayers = numPlayers;
-        mSSDataBaseAdapter=mSSDataBaseAdapter.open();
+        this.mSSDataBaseAdapter= db.open();
         this.promptArray = mSSDataBaseAdapter.getPromptArray(this.genre,this.numPlayers);
         mSSDataBaseAdapter.close();
-
+        //TODO I think there are some loose ends with this database, look into making sure it's closed
 
     }
 

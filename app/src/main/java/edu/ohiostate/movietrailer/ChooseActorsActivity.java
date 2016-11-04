@@ -26,6 +26,7 @@ public class ChooseActorsActivity extends Activity {
     SSDataBaseAdapter mSSDataBaseAdapter;
 
     private static final String TAG = "ChooseActorsActivity";
+    public static final String MOVIE_TEMPLATE = "MyMovie";
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
@@ -39,13 +40,17 @@ public class ChooseActorsActivity extends Activity {
         setContentView(R.layout.num_actors);
         numActors = 0;
         //Get movie template from Genre activity
-        movieTemplate = (Template) getIntent().getSerializableExtra(ChooseGenreActivity.MOVIE_TEMPLATE);
+        //movieTemplate = (Template) getIntent().getSerializableExtra(ChooseGenreActivity.MOVIE_TEMPLATE);
+        Bundle movieTemplateBundle = getIntent().getExtras();
+        if(movieTemplateBundle != null){
+            movieTemplate = (Template)movieTemplateBundle.getSerializable(MOVIE_TEMPLATE);
+        }
 
         spinner = (Spinner) findViewById(R.id.spinnerActor);
         mGoButton = (Button)findViewById(R.id.go_button);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.genre_array, android.R.layout.simple_spinner_item);
+                R.array.actor_array, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
@@ -70,7 +75,7 @@ public class ChooseActorsActivity extends Activity {
         mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movieTemplate.setPromptArray(numActors);
+                movieTemplate.setPromptArray(numActors, mSSDataBaseAdapter);
                 Intent intentProcessing = new Intent(getApplicationContext(),ProcessingActivity.class);
                 intentProcessing.putExtra(ChooseGenreActivity.MOVIE_TEMPLATE,movieTemplate);
                 startActivity(intentProcessing);
