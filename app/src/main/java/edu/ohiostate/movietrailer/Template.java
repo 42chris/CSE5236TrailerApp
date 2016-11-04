@@ -36,12 +36,6 @@ public class Template implements Serializable{
     private void readObject(java.io.ObjectInputStream in)
         throws IOException, ClassNotFoundException
     {
-        /*
-        clipArray = (ArrayList<Clip>)in.readObject();
-        promptArray = (ArrayList<Prompt>)in.readObject();
-        numPlayers = in.read();
-        genre = (String)in.readObject();
-        */
         genre = (String)in.readObject();
         numPlayers = in.readInt();
         promptArray = (ArrayList<Prompt>)in.readObject();

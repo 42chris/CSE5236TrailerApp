@@ -79,12 +79,6 @@ public class Clip implements Serializable{
         created = in.readBoolean();
         h264Track = (Movie)in.readObject();
 
-        /*
-        h264Track = (Movie)in.readObject();
-        created = in.readBoolean();
-        path = (String)in.readObject();
-        clipID = (String)in.readObject();
-        */
     }
 
     private void readObjectNoData()
