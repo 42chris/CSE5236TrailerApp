@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.io.File;
+import java.io.IOException;
+
 public class SplashScreen extends Activity {
 
 
@@ -29,11 +32,16 @@ public class SplashScreen extends Activity {
         mSplashScreenDataBaseAdapter=new SSDataBaseAdapter(this);
         mSplashScreenDataBaseAdapter= mSplashScreenDataBaseAdapter.open();
 
-
         mSplashScreenDataBaseAdapter.populateTemplates();
-        String[] promptNames = {"test"};
+
+        String[] promptNames = new String[1];
+        promptNames[0] = getApplicationContext().getAssets() + "prompts/p1.txt";
+
         mSplashScreenDataBaseAdapter.populatePrompts(promptNames);
-        String[] clipSetNames = {"TESTC"};
+
+        String[] clipSetNames = new String[2];
+        clipSetNames[0] = getApplicationContext().getAssets() + "action/action_1.mp4";
+        clipSetNames[1] = getApplicationContext().getAssets() + "action/action_2.mp4";
         mSplashScreenDataBaseAdapter.populateClips(clipSetNames);
 
 

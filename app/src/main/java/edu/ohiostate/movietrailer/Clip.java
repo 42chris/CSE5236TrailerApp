@@ -1,6 +1,7 @@
 package edu.ohiostate.movietrailer;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.googlecode.mp4parser.FileDataSourceImpl;
 import com.googlecode.mp4parser.authoring.Movie;

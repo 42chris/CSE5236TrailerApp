@@ -28,6 +28,8 @@
             android:name=".ChooseActorsActivity"/>
         <activity
             android:name=".ChooseGenreActivity"/>
+        <activity
+            android:name=".ProcessingActivity"/>
     </application>
 
 </manifest>
