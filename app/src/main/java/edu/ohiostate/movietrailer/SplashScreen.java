@@ -43,11 +43,8 @@ public class SplashScreen extends Activity {
 
             mSplashScreenDataBaseAdapter.populateTemplates();
 
-<<<<<<< Updated upstream
-            String[] promptNames = {"p1"};
-=======
+
         String[] promptNames = {"test"};
->>>>>>> Stashed changes
 
             mSplashScreenDataBaseAdapter.populatePrompts(promptNames);
 

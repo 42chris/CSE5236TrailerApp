@@ -1,8 +1,12 @@
 package edu.ohiostate.movietrailer;
 
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import com.googlecode.mp4parser.FileDataSourceImpl;
 import com.googlecode.mp4parser.authoring.Movie;
@@ -13,6 +17,7 @@ import com.googlecode.mp4parser.authoring.tracks.h264.H264TrackImpl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,7 +50,14 @@ public class Clip implements Serializable{
         this.path = path;
         this.created = true;
         this.context = _context;
-        createMovieFile();
+        createMovieFile(_context);
+    }
+
+    public Clip(Uri uri, Context _context){
+        this.path = uri.getPath();
+        this.created = true;
+        this.context = _context;
+        createMovieFile(uri);
     }
 
     private File stream2file (InputStream in) throws IOException {
@@ -57,12 +69,12 @@ public class Clip implements Serializable{
         return tempFile;
     }
 
-    public void createMovieFile(){
+    public void createMovieFile(Context _context){
         InputStream test1 =null;
         File testFile = null;
         Movie h264Track = null;
         try{
-            test1 = this.context.getAssets().open(this.path);
+            test1 = _context.getAssets().open(this.path);
         }catch(IOException e){
             Log.d("Clip"+clipID,"File not Found. could not find asset");
         }try {
@@ -78,6 +90,32 @@ public class Clip implements Serializable{
         }
     }
 
+    public void createMovieFile(Uri uri){
+        InputStream test1 =null;
+        Movie h264Track = null;
+        File testFile = null;
+        testFile = new File(getRealPathFromURI(uri));
+        if (isExternalStorageReadable()) {
+            try {
+                this.h264Track = MovieCreator.build(new FileDataSourceImpl(testFile));
+                Log.d("Clip" + clipID, "*******************************CREATED H264 Track!*************************************\n\n\n*************************************\n\n");
+            } catch (IOException e) {
+                Log.d("Clip" + clipID, "File not Found. video not added to Clip object");
+            }
+        }
+    }
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Video.Media.DATA };
+        CursorLoader loader = new CursorLoader(this.context, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
     public Clip(Context _context){
         this.created = false;
         this.context = _context;
@@ -89,7 +127,9 @@ public class Clip implements Serializable{
     public String getPath(){
         return this.path;
     }
-
+    public Context getContext(){
+        return this.context;
+    }
     public Movie getH264Track(){
         return this.h264Track;
     }
@@ -131,7 +171,14 @@ public class Clip implements Serializable{
     {
     }
     */
-
+public boolean isExternalStorageReadable() {
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state) ||
+            Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+        return true;
+    }
+    return false;
+}
 
 }
 

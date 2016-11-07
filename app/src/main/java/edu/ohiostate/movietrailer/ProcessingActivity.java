@@ -3,6 +3,7 @@ package edu.ohiostate.movietrailer;
 import android.Manifest;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -48,11 +49,11 @@ public class ProcessingActivity extends FragmentActivity {
 
     private Template movieTemplate;
     private int currentClipIndex;
+    private Fragment currentFragment;
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
 //            new Prompt(R.string.genre_string,PromptType.TEXT)};
-    private  int mCurrentIndex = 0;
 
 
     @Override
@@ -69,10 +70,14 @@ public class ProcessingActivity extends FragmentActivity {
         for (int i =0 ; i<clipArray.size();i++) {
             if (!clipArray.get(i).isCreated()){
                 if (fragment ==null){
-                    currentClipIndex = i;
                     Prompt poppedPrompt = TrailerApp.getInstance().mainTemplate.getPromptArray().remove();
-                    fragment = PromptFragment.newInstance(poppedPrompt);
+                    fragment = PromptFragment.newInstance(poppedPrompt,i);
                     fm.beginTransaction().add(R.id.fragmentContainer,fragment).commit();
+                }else if (((PromptFragment) fragment).isCompleted()){
+                    Prompt poppedPrompt = TrailerApp.getInstance().mainTemplate.getPromptArray().remove();
+                    Fragment newFragment = PromptFragment.newInstance(poppedPrompt,i);
+                    android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.fragmentContainer,newFragment).commit();
                 }
             }
         }
@@ -89,6 +94,10 @@ public class ProcessingActivity extends FragmentActivity {
 
 
 
+    }
+
+    public int getCurrentClipIndex(){
+        return this.currentClipIndex;
     }
 
     public void processClips(ArrayList<Clip> clipArray){
@@ -173,6 +182,8 @@ public class ProcessingActivity extends FragmentActivity {
     public void onResume(){
         super.onResume();
         Log.d(TAG,"onResume() called");
+
+
     }
 
     @Override

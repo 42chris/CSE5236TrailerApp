@@ -76,6 +76,10 @@ public class Template{
         mSSDataBaseAdapter.close();
     }
 
+    public void setClip (Clip newClip, int index){
+        this.clipArray.set(index,newClip);
+    }
+
     public Queue<Prompt> getPromptArray(){
         return this.promptArray;
     }
