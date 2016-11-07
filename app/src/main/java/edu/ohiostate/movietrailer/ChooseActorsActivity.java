@@ -40,10 +40,7 @@ public class ChooseActorsActivity extends Activity {
         setContentView(R.layout.num_actors);
         numActors = 0;
         //Get movie template from Genre activity
-        Bundle movieTemplateBundle = getIntent().getExtras();
-        if(movieTemplateBundle != null){
-            movieTemplate = (Template)movieTemplateBundle.getSerializable(MOVIE_TEMPLATE);
-        }
+        movieTemplate = TrailerApp.getInstance().mainTemplate;
 
         spinner = (Spinner) findViewById(R.id.spinnerActor);
         mGoButton = (Button)findViewById(R.id.go_button);
@@ -75,10 +72,9 @@ public class ChooseActorsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 movieTemplate.setPromptArray(numActors, mSSDataBaseAdapter);
+                TrailerApp.getInstance().mainTemplate = movieTemplate;
                 Intent intentProcessing = new Intent(getApplicationContext(),ProcessingActivity.class);
-                Bundle processingBundle = new Bundle();
-                processingBundle.putSerializable(MOVIE_TEMPLATE, movieTemplate);
-                intentProcessing.putExtras(processingBundle);
+
                 startActivity(intentProcessing);
             }
         });

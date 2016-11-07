@@ -21,7 +21,6 @@ public class ChoiceActivity extends Activity {
     private ImageButton mGalleryButton;
     public static final String PREFS_NAME = "MyPrefsFile";
 
-    LoginDataBaseAdapter mLoginDataBaseAdapter;
 
     private static final String TAG = "ChoiceActivity";
 

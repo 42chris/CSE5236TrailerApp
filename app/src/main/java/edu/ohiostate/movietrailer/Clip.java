@@ -87,7 +87,7 @@ public class Clip implements Serializable{
         return this.h264Track;
     }
 
-    private void writeObject(java.io.ObjectOutputStream out)
+/*    private void writeObject(java.io.ObjectOutputStream out)
             throws IOException
     {
         if(clipID != null){
@@ -104,7 +104,7 @@ public class Clip implements Serializable{
         }
         out.writeBoolean(created);
         out.writeObject(h264Track);
-        /*out.writeObject(context);*/
+        *//*out.writeObject(context);*//*
         out.flush();
     }
 
@@ -123,6 +123,7 @@ public class Clip implements Serializable{
             throws ObjectStreamException
     {
     }
+    */
 
 
 }

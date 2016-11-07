@@ -1,5 +1,6 @@
 package edu.ohiostate.movietrailer;
 
+import android.app.Application;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * Created by andrewpetrilla on 10/29/16.
  */
 
-public class Template implements Serializable{
+public class Template{
 
     private String genre = "";
     int numPlayers = 0;
@@ -23,7 +24,7 @@ public class Template implements Serializable{
     SSDataBaseAdapter mSSDataBaseAdapter;
 
 
-    private void writeObject(java.io.ObjectOutputStream out)
+ /*   private void writeObject(java.io.ObjectOutputStream out)
         throws IOException
     {
         out.writeObject(genre);
@@ -45,7 +46,7 @@ public class Template implements Serializable{
     private void readObjectNoData()
         throws ObjectStreamException
     {
-    }
+    }*/
 
 
 

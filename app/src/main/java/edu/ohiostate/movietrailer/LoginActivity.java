@@ -59,6 +59,7 @@ public class LoginActivity extends Activity {
                 String storedPassword = mLoginDataBaseAdapter.getSingleEntry(userName);
 
                 if (password.equals(storedPassword)){
+                    TrailerApp.getInstance().user = userName;
                     Toast.makeText(LoginActivity.this,"Successful Login",Toast.LENGTH_LONG).show();
                     Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
                     startActivity(intentMainMenu);

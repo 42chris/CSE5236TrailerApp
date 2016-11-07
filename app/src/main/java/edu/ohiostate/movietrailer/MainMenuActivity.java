@@ -28,6 +28,7 @@ public class MainMenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) (MainMenu) called");
+        Log.d(TAG,"********User:"+TrailerApp.getInstance().user+"********");
         setContentView(R.layout.gallery_or_create);
 
         mnewTrailerButton = (ImageButton)findViewById(R.id.create_button);

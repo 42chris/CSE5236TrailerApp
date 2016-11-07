@@ -52,16 +52,12 @@ public class ProcessingActivity extends Activity {
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.processing_screen);
 
-        Bundle movieTemplateBundle = getIntent().getExtras();
-        if(movieTemplateBundle != null){
-            movieTemplate = (Template)movieTemplateBundle.getSerializable(MOVIE_TEMPLATE);
-        }
+        movieTemplate = TrailerApp.getInstance().mainTemplate;
 
         ArrayList<Clip> clipArray = movieTemplate.clipArray;
         for (Clip c:clipArray) {
             if (!c.isCreated()){
                 Intent intentDisplayPrompt = new Intent(getApplicationContext(),PromptDisplayActivity.class);
-                intentDisplayPrompt.putExtra(ChooseGenreActivity.MOVIE_TEMPLATE,movieTemplate);
                 startActivity(intentDisplayPrompt);
             }
         }
@@ -142,13 +138,12 @@ public class ProcessingActivity extends Activity {
         Log.d(TAG,"onResume() called");
         setContentView(R.layout.processing_screen);
 
-        movieTemplate = (Template) getIntent().getSerializableExtra(ChooseGenreActivity.MOVIE_TEMPLATE);
+        movieTemplate = TrailerApp.getInstance().mainTemplate;
 
         ArrayList<Clip> clipArray = movieTemplate.clipArray;
         for (Clip c:clipArray) {
             if (!c.isCreated()){
                 Intent intentDisplayPrompt = new Intent(getApplicationContext(),PromptDisplayActivity.class);
-                intentDisplayPrompt.putExtra(ChooseGenreActivity.MOVIE_TEMPLATE,movieTemplate);
                 startActivity(intentDisplayPrompt);
             }
         }

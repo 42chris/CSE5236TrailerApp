@@ -39,9 +39,7 @@ public class SplashScreen extends Activity {
 
         mSplashScreenDataBaseAdapter.populatePrompts(promptNames);
 
-        String[] clipSetNames = new String[2];
-        clipSetNames[0] = getApplicationContext().getAssets() + "action/action_1.mp4";
-        clipSetNames[1] = getApplicationContext().getAssets() + "action/action_2.mp4";
+        String[] clipSetNames = {"TESTC"};
         mSplashScreenDataBaseAdapter.populateClips(clipSetNames);
 
 
