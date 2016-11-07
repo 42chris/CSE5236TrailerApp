@@ -30,4 +30,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.googlecode.mp4parser:isoparser:1.1.21'
+    compile 'commons-io:commons-io:2.5'
 }
