@@ -176,6 +176,7 @@ public class SSDataBaseAdapter
             while ((line = br.readLine()) != null) {
                 lines.add(index,line);
                 Log.d(TAG,line);
+                index++;
             }
             br.close();
         }
@@ -184,6 +185,7 @@ public class SSDataBaseAdapter
             Log.d(TAG,"Error Reading file");
         }
         for (String s:lines) {
+            newValues = new ContentValues();
             String arrayString[] = s.split("\\s+");
             try {
                 newValues.put("CREATED", Integer.parseInt(arrayString[0]));
