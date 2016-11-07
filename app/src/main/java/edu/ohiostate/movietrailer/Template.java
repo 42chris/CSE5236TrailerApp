@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by andrewpetrilla on 10/29/16.
@@ -19,7 +21,7 @@ public class Template{
 
     private String genre = "";
     int numPlayers = 0;
-    ArrayList<Prompt> promptArray;
+    Queue<Prompt> promptArray;
     ArrayList<Clip> clipArray;
     SSDataBaseAdapter mSSDataBaseAdapter;
 
@@ -53,7 +55,7 @@ public class Template{
     public Template(String genre, SSDataBaseAdapter db){
         this.genre = genre;
         this.clipArray= new ArrayList<Clip>();
-        this.promptArray = new ArrayList<Prompt>();
+        this.promptArray = new ConcurrentLinkedQueue<Prompt>();
         this.mSSDataBaseAdapter = db;
     }
 
@@ -74,7 +76,7 @@ public class Template{
         mSSDataBaseAdapter.close();
     }
 
-    public ArrayList<Prompt> getPromptArray(){
+    public Queue<Prompt> getPromptArray(){
         return this.promptArray;
     }
 

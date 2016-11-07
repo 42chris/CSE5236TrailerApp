@@ -15,6 +15,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SSDataBaseAdapter
 {
@@ -124,6 +127,7 @@ public class SSDataBaseAdapter
             while ((line = br.readLine()) != null) {
                 lines.add(index,line);
                 Log.d(TAG,line);
+                index++;
             }
             br.close();
         }
@@ -256,9 +260,9 @@ public class SSDataBaseAdapter
     //================================================================================
     // Get Data
     //================================================================================
-    public ArrayList<Prompt> getPromptArray(String genre, int numActors)
+    public Queue<Prompt> getPromptArray(String genre, int numActors)
     {
-        ArrayList<Prompt> promptArray= new ArrayList<Prompt>();
+        Queue<Prompt> promptArray = new ConcurrentLinkedQueue<Prompt>();
         Cursor cursor=db.query("TEMPLATE", null, " GENRE=?", new String[]{genre}, null, null, null);
         if(cursor.getCount()<1) // UserName Not Exist
         {
@@ -275,10 +279,24 @@ public class SSDataBaseAdapter
         }
         cursor.close();
 
-        //Need to store Prompt data in Prompt Objects still
+        Cursor cursor2 = db.query(promptName,null,null,null,null,null,null);
+        if(cursor2.getCount()<1) // UserName Not Exist
+        {
+            cursor2.close();
+        }
+        cursor2.moveToFirst();
+        while (!cursor2.isAfterLast()){
 
+            String type= cursor2.getString(cursor2.getColumnIndex("TYPE"));
+            String question= cursor2.getString(cursor2.getColumnIndex("QUESTION"));
+            float length = cursor2.getFloat(cursor2.getColumnIndex("LENGTH"));
+            Prompt promptEntry = new Prompt(question,type,length,null);
 
+            promptArray.add(promptEntry);
+            cursor2.moveToNext();
+        }
 
+        cursor2.close();
         return promptArray;
     }
 
@@ -311,7 +329,9 @@ public class SSDataBaseAdapter
             clipArray.add(clipEntry);
             cursor2.moveToNext();
         }
+        cursor2.close();
         return clipArray;
     }
+
 
 }

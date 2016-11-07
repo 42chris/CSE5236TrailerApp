@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ohiostate.movietrailer">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".TrailerApp" >
+
         <activity
             android:name=".SplashScreen">
             <intent-filter>
@@ -31,6 +32,8 @@
             android:name=".ChooseGenreActivity"/>
         <activity
             android:name=".ProcessingActivity"/>
+        <fragment
+            android:name=".PromptFragment"/>
     </application>
 
 </manifest>

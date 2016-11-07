@@ -8,28 +8,47 @@ package edu.ohiostate.movietrailer;
 
 public class Prompt {
 
-    private int mQuestion;
+    private String mQuestion;
 
-    private PromptType mType;
+    private String mType;
 
-    public Prompt(int question, PromptType pT){
+    private float length;
+
+    private String[] choices;
+
+    private boolean complete;
+
+    public Prompt(String question, String pT, float length, String[] choices){
         mQuestion = question;
         mType = pT;
+        this.length = length;
+        this.choices  = choices;
+        this.complete = false;
     }
 
-    public int getQuestion() {
+    public String getQuestion() {
         return mQuestion;
     }
 
-    public void setQuestion(int question) {
+    public void setQuestion(String question) {
         mQuestion = question;
     }
 
-    public PromptType getType() {
+    public String getType() {
         return mType;
     }
 
-    public void setType(PromptType type) {
+    public void setType(String type) {
         mType = type;
     }
+
+    public void setComplete(){
+        this.complete = true;
+    }
+
+    public boolean getComplete(){
+        return this.complete;
+    }
+
+    public float getLength(){ return this.length;}
 }

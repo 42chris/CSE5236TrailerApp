@@ -36,6 +36,7 @@ public class Clip implements Serializable{
     private String path;
     private boolean created;
     private Movie h264Track;
+    private Context context;
 
     public static final String PREFIX = "stream2file";
     public static final String SUFFIX = ".mp4";
@@ -43,11 +44,25 @@ public class Clip implements Serializable{
     public Clip(String path, Context _context){
         this.path = path;
         this.created = true;
+        this.context = _context;
+        createMovieFile();
+    }
+
+    private File stream2file (InputStream in) throws IOException {
+        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
+        tempFile.deleteOnExit();
+        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+            IOUtils.copy(in, out);
+        }
+        return tempFile;
+    }
+
+    public void createMovieFile(){
         InputStream test1 =null;
         File testFile = null;
         Movie h264Track = null;
         try{
-            test1 = _context.getAssets().open(path);
+            test1 = this.context.getAssets().open(this.path);
         }catch(IOException e){
             Log.d("Clip"+clipID,"File not Found. could not find asset");
         }try {
@@ -63,17 +78,9 @@ public class Clip implements Serializable{
         }
     }
 
-    private File stream2file (InputStream in) throws IOException {
-        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
-        tempFile.deleteOnExit();
-        try (FileOutputStream out = new FileOutputStream(tempFile)) {
-            IOUtils.copy(in, out);
-        }
-        return tempFile;
-    }
-
     public Clip(Context _context){
         this.created = false;
+        this.context = _context;
     }
 
     public boolean isCreated(){
