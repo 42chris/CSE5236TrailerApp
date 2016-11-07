@@ -296,11 +296,11 @@ public class SSDataBaseAdapter
         }
         cursor2.moveToFirst();
         while (!cursor2.isAfterLast()){
-            Clip clipEntry = new Clip();
+            Clip clipEntry = new Clip(context);
             int created = cursor2.getInt(cursor2.getColumnIndex("CREATED"));
             if (created == 1){
                 String filepath= cursor2.getString(cursor2.getColumnIndex("FILEPATH"));
-                clipEntry = new Clip(filepath);
+                clipEntry = new Clip(filepath,context);
             }
             clipArray.add(clipEntry);
             cursor2.moveToNext();

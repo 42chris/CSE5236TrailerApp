@@ -1,2 +1,2 @@
-1 /assets/action/action_1.mp4
-1 /assets/action/action_2.mp4
+1 action/action_1.mp4
+1 action/action_2.mp4
