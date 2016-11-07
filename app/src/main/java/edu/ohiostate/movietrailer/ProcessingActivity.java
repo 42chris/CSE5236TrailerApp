@@ -52,7 +52,10 @@ public class ProcessingActivity extends Activity {
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.processing_screen);
 
-        movieTemplate = (Template) getIntent().getSerializableExtra(ChooseGenreActivity.MOVIE_TEMPLATE);
+        Bundle movieTemplateBundle = getIntent().getExtras();
+        if(movieTemplateBundle != null){
+            movieTemplate = (Template)movieTemplateBundle.getSerializable(MOVIE_TEMPLATE);
+        }
 
         ArrayList<Clip> clipArray = movieTemplate.clipArray;
         for (Clip c:clipArray) {

@@ -80,7 +80,6 @@ public class ChooseGenreActivity extends Activity {
                 Bundle chooseActorsBundle = new Bundle();
                 chooseActorsBundle.putSerializable(MOVIE_TEMPLATE, movieTemplate);
                 intentChooseActors.putExtras(chooseActorsBundle);
-                //intentChooseActors.putExtra(MOVIE_TEMPLATE,(Serializable)movieTemplate);
                 startActivity(intentChooseActors);
             }
         });
