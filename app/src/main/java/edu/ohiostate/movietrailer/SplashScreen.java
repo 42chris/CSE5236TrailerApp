@@ -32,10 +32,10 @@ public class SplashScreen extends Activity {
         mSplashScreenDataBaseAdapter=new SSDataBaseAdapter(this);
         mSplashScreenDataBaseAdapter= mSplashScreenDataBaseAdapter.open();
 
+
         mSplashScreenDataBaseAdapter.populateTemplates();
 
-        String[] promptNames = new String[1];
-        promptNames[0] = getApplicationContext().getAssets() + "prompts/p1.txt";
+        String[] promptNames = {"p1"};
 
         mSplashScreenDataBaseAdapter.populatePrompts(promptNames);
 

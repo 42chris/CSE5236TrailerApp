@@ -204,6 +204,7 @@ public class SSDataBaseAdapter
             // Insert the row into your table
             db.insert(clipFileNames[0], null, newValues);
 
+
         }
 
         //newValues.put("GENRE", "Action");
@@ -291,7 +292,7 @@ public class SSDataBaseAdapter
         String clipArrayName = "";
         clipArrayName =cursor.getString(cursor.getColumnIndex("CLIPS"));
         cursor.close();
-        Cursor cursor2 = db.query(clipArrayName,null," ID=?",new String[]{"1"},null,null,null);
+        Cursor cursor2 = db.query(clipArrayName,null,null,null,null,null,null);
         if(cursor2.getCount()<1) // UserName Not Exist
         {
             cursor2.close();
