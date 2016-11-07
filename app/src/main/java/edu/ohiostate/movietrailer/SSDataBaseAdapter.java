@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -203,6 +204,7 @@ public class SSDataBaseAdapter
 
             // Insert the row into your table
             db.insert(clipFileNames[0], null, newValues);
+            Log.d(TAG, "Clip inserted into table");
 
 
         }
@@ -299,6 +301,7 @@ public class SSDataBaseAdapter
         }
         cursor2.moveToFirst();
         while (!cursor2.isAfterLast()){
+            Log.d(TAG, "cursor2 did a thing");
             Clip clipEntry = new Clip(context);
             int created = cursor2.getInt(cursor2.getColumnIndex("CREATED"));
             if (created == 1){

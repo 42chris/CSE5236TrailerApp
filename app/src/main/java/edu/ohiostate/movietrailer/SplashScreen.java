@@ -2,11 +2,9 @@ package edu.ohiostate.movietrailer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-
-import java.io.File;
-import java.io.IOException;
 
 public class SplashScreen extends Activity {
 
@@ -16,32 +14,46 @@ public class SplashScreen extends Activity {
     SSDataBaseAdapter mSplashScreenDataBaseAdapter;
 
     private static final String TAG = "SplashScreen";
+    private static final String SHARED_PREFS_NAME = "mySharedPrefs";
+    private static final String SHARED_PREFS_DB_CREATED = "dbCreated";
+    private static final String SHARED_PREFS_RESULT = "dbHasBeenCreated";
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
 //            new Prompt(R.string.genre_string,PromptType.TEXT)};
     private  int mCurrentIndex = 0;
 
+    static final String DATABASE_NAME = "template.db";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.splash_screen);
+        Log.d(TAG,"onCreate(Bundle) called");
+
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        String created = prefs.getString(SHARED_PREFS_DB_CREATED, null);
 
         mSplashScreenDataBaseAdapter=new SSDataBaseAdapter(this);
         mSplashScreenDataBaseAdapter= mSplashScreenDataBaseAdapter.open();
 
+        if(created == null){
+            Log.d(TAG, "Database not yet created");
 
-        mSplashScreenDataBaseAdapter.populateTemplates();
+            mSplashScreenDataBaseAdapter.populateTemplates();
 
-        String[] promptNames = {"p1"};
+            String[] promptNames = {"p1"};
 
-        mSplashScreenDataBaseAdapter.populatePrompts(promptNames);
+            mSplashScreenDataBaseAdapter.populatePrompts(promptNames);
 
-        String[] clipSetNames = {"TESTC"};
-        mSplashScreenDataBaseAdapter.populateClips(clipSetNames);
+            String[] clipSetNames = {"TESTC"};
+            mSplashScreenDataBaseAdapter.populateClips(clipSetNames);
 
+            SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putString(SHARED_PREFS_DB_CREATED, SHARED_PREFS_RESULT);
+            editor.commit();
+        }
 
         Intent intentLogin = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(intentLogin);
