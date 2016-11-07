@@ -76,6 +76,7 @@ public class ChooseGenreActivity extends Activity {
             public void onClick(View v) {
                 movieTemplate = new Template(genre,mSSDataBaseAdapter);
                 movieTemplate.setClipArray();
+                Log.d(TAG, "CHECK: " + movieTemplate.clipArray.size());
                 Intent intentChooseActors = new Intent(getApplicationContext(),ChooseActorsActivity.class);
                 Bundle chooseActorsBundle = new Bundle();
                 chooseActorsBundle.putSerializable(MOVIE_TEMPLATE, movieTemplate);
