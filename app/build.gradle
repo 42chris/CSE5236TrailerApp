@@ -22,6 +22,7 @@ android {
 repositories {
     maven {
         url "https://github.com/sannies/mp4parser"
+        mavenCentral()
     }
 }
 
@@ -31,5 +32,6 @@ dependencies {
     compile 'com.googlecode.mp4parser:isoparser:1.1.21'
     compile 'commons-io:commons-io:2.5'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
     testCompile 'junit:junit:4.12'
 }

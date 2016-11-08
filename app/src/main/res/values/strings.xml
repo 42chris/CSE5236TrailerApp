@@ -12,6 +12,9 @@
     <string name="go_button">Go</string>
     <string name="actor_number"># Of Actors</string>
     <string name="processing">Processing...</string>
+    <string name="facebook_app_id">1209265295786931</string>
+    <string name="delete_account_button">Delete Account</string>
+    <string name="logout_button">Logout</string>
 
     <string-array name="genre_array">
         <item>Action</item>

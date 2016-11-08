@@ -48,7 +48,8 @@ public class MainMenuActivity extends Activity {
         msettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainMenuActivity.this,"Settings",Toast.LENGTH_LONG).show();
+                Intent intentSettings = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intentSettings);
             }
         });
 

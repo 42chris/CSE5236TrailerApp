@@ -239,7 +239,8 @@ public class SSDataBaseAdapter
     {
         //String id=String.valueOf(ID);
         String where="USERNAME=?";
-        int numberOFEntriesDeleted= db.delete("LOGIN", where, new String[]{UserName}) ;
+        String[] usernameArray = {UserName};
+        int numberOFEntriesDeleted= db.delete("LOGIN", where, usernameArray);
         // Toast.makeText(context, "Number fo Entry Deleted Successfully : "+numberOFEntriesDeleted, Toast.LENGTH_LONG).show();
         return numberOFEntriesDeleted;
     }
