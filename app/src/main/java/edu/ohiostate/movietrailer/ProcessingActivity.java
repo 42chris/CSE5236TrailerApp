@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Process;
@@ -24,12 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coremedia.iso.boxes.Container;
+import com.facebook.share.model.ShareVideo;
+import com.facebook.share.model.ShareVideoContent;
 import com.googlecode.mp4parser.authoring.Movie;
 import com.googlecode.mp4parser.authoring.Track;
 import com.googlecode.mp4parser.authoring.builder.DefaultMp4Builder;
 import com.googlecode.mp4parser.authoring.tracks.AppendTrack;
 import com.googlecode.mp4parser.authoring.tracks.h264.H264TrackImpl;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -54,6 +58,9 @@ public class ProcessingActivity extends Activity {
     private int currentClipIndex;
     private Fragment currentFragment;
     private Button shootVideoButton;
+
+    ShareVideo share;
+    ShareVideoContent content;
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
@@ -150,9 +157,23 @@ public class ProcessingActivity extends Activity {
         }
         try {
             fc.close();
+
         }catch(IOException e){
             Log.d(TAG,"File failed to close");
         }
+
+
+        Uri uri = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"output.mp4"));
+        share = new ShareVideo.Builder().setLocalUrl(uri).build();
+        content = new ShareVideoContent.Builder().setVideo(share).build();
+
+        MediaPlayer mp = new MediaPlayer();
+        try{
+            mp.setDataSource(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"output.mp4");
+        }catch(IOException e){
+            Log.d(TAG, "Video failed to play");
+        }
+
 
 //        SharedPreferences settings  = getSharedPreferences(PREFS_NAME,0);
 //        boolean silent = settings.getBoolean()
