@@ -19,7 +19,8 @@ public class LoginActivity extends Activity {
     private TextView mnewAccount;
     private EditText userNameEditableField;
     private EditText passwordEditableField;
-    public static final String PREFS_NAME = "MyPrefsFile";
+    private static final String SHARED_PREFS_NAME = "mySharedPrefs";
+    private static final String SHARED_PREFS_CURRENT_USER = "currentUser";
 
     LoginDataBaseAdapter mLoginDataBaseAdapter;
 
@@ -43,6 +44,13 @@ public class LoginActivity extends Activity {
 //        int question = mPromptBank[mCurrentIndex].getQuestion();
 //        mQuestionTextView.setText(question);
 
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        String currentUser = prefs.getString(SHARED_PREFS_CURRENT_USER, null);
+        if(currentUser != null){
+            Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
+            startActivity(intentMainMenu);
+        }
+
         mLoginDataBaseAdapter=new LoginDataBaseAdapter(this);
         mLoginDataBaseAdapter=mLoginDataBaseAdapter.open();
 
@@ -60,6 +68,11 @@ public class LoginActivity extends Activity {
 
                 if (password.equals(storedPassword)){
                     TrailerApp.getInstance().user = userName;
+
+                    SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putString(SHARED_PREFS_CURRENT_USER, userName);
+                    editor.commit();
+
                     Toast.makeText(LoginActivity.this,"Successful Login",Toast.LENGTH_LONG).show();
                     Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
                     startActivity(intentMainMenu);

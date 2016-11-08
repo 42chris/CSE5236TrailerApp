@@ -25,33 +25,6 @@ public class Template{
     ArrayList<Clip> clipArray;
     SSDataBaseAdapter mSSDataBaseAdapter;
 
-
- /*   private void writeObject(java.io.ObjectOutputStream out)
-        throws IOException
-    {
-        out.writeObject(genre);
-        out.writeInt(numPlayers);
-        out.writeObject(promptArray);
-        out.writeObject(clipArray);
-        out.flush();
-    }
-
-    private void readObject(java.io.ObjectInputStream in)
-        throws IOException, ClassNotFoundException
-    {
-        genre = (String)in.readObject();
-        numPlayers = in.readInt();
-        promptArray = (ArrayList<Prompt>)in.readObject();
-        clipArray = (ArrayList<Clip>)in.readObject();
-    }
-
-    private void readObjectNoData()
-        throws ObjectStreamException
-    {
-    }*/
-
-
-
     public Template(String genre, SSDataBaseAdapter db){
         this.genre = genre;
         this.clipArray= new ArrayList<Clip>();
