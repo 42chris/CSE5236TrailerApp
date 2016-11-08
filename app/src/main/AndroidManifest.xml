@@ -33,6 +33,8 @@
             android:name=".ChooseGenreActivity"/>
         <activity
             android:name=".ProcessingActivity"/>
+        <activity
+            android:name=".PromptActivity"/>
         <fragment
             android:name=".PromptFragment"/>
     </application>

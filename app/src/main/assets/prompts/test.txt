@@ -1,2 +1,2 @@
 video Take_a_panning_video_of_a_setting null 2.00
-video Take_video_of_Actor_1_staring_into_distance null 3.00
+video Shoot_a_video_of_actor_1 null 3.00

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.Process;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProcessingActivity extends FragmentActivity {
+public class ProcessingActivity extends Activity {
 
 
     public static final String PREFS_NAME = "MyPrefsFile";
@@ -61,24 +62,15 @@ public class ProcessingActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.processing_screen);
-        android.support.v4.app.FragmentManager fm  = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
         movieTemplate = TrailerApp.getInstance().mainTemplate;
 
         ArrayList<Clip> clipArray = movieTemplate.clipArray;
         for (int i =0 ; i<clipArray.size();i++) {
             if (!clipArray.get(i).isCreated()){
-                if (fragment ==null){
-                    Prompt poppedPrompt = TrailerApp.getInstance().mainTemplate.getPromptArray().remove();
-                    fragment = PromptFragment.newInstance(poppedPrompt,i);
-                    fm.beginTransaction().add(R.id.fragmentContainer,fragment).commit();
-                }else if (((PromptFragment) fragment).isCompleted()){
-                    Prompt poppedPrompt = TrailerApp.getInstance().mainTemplate.getPromptArray().remove();
-                    Fragment newFragment = PromptFragment.newInstance(poppedPrompt,i);
-                    android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragmentContainer,newFragment).commit();
-                }
+                Intent intentPromptActivity = new Intent(getApplicationContext(),PromptActivity.class);
+                intentPromptActivity.putExtra("index",i);
+                startActivity(intentPromptActivity);
             }
         }
 
