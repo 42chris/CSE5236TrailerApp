@@ -41,11 +41,9 @@
         <activity
             android:name=".ProcessingActivity"/>
         <activity
-<<<<<<< HEAD
             android:name=".PromptActivity"/>
-=======
+        <activity
             android:name=".SettingsActivity"/>
->>>>>>> origin/master
         <fragment
             android:name=".PromptFragment"/>
     </application>

@@ -62,25 +62,26 @@ public class PromptActivity extends Activity {
         movieTemplate = TrailerApp.getInstance().mainTemplate;
         Intent mIntent = getIntent();
         int clipIndex = mIntent.getIntExtra("index",0);
-        index = clipIndex;
-
-        ArrayList<Clip> clipArray = movieTemplate.clipArray;
-        Prompt poppedPrompt = TrailerApp.getInstance().mainTemplate.getPromptArray().remove();
-        questionText = poppedPrompt.getQuestion();
+        this.index = clipIndex;
         question = (TextView) findViewById(R.id.questionView);
         shootVideoButton = (Button) findViewById(R.id.go_button);
-        question.setText(questionText);
-        shootVideoButton.setEnabled(true);
-        shootVideoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                if (video_intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(video_intent, 1);
+
+
+            questionText = mIntent.getStringExtra("question");
+
+            question.setText(questionText);
+            shootVideoButton.setEnabled(true);
+            shootVideoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    if (video_intent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(video_intent, 1);
+                    }
+                    //startActivity(video_intent);
                 }
-                //startActivity(video_intent);
-            }
-        });
+            });
+
 
 
 
@@ -127,10 +128,9 @@ public class PromptActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
             Uri videoUri = intent.getData();
-            Clip newClip = new Clip(videoUri,getApplicationContext());
-            TrailerApp.getInstance().mainTemplate.setClip(newClip, index);
-            Intent intentProcessActivity = new Intent(getApplicationContext(),ProcessingActivity.class);
-            startActivity(intentProcessActivity);
+            Clip newClip = new Clip(videoUri,PromptActivity.this);
+            TrailerApp.getInstance().mainTemplate.setClip(newClip, this.index);
+            finish();
         }
     }
 

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.net.URI;
 
 import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class PromptFragment extends Fragment {
@@ -80,7 +81,7 @@ public class PromptFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                if (video_intent.resolveActivity(getContext().getPackageManager()) != null) {
+                if (video_intent.resolveActivity(getApplicationContext().getPackageManager()) != null) {
                     startActivityForResult(video_intent, 1);
                 }
                 //startActivity(video_intent);
@@ -94,7 +95,7 @@ public class PromptFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
             Uri videoUri = intent.getData();
-            Clip newClip = new Clip(videoUri,getContext());
+            Clip newClip = new Clip(videoUri,getApplicationContext());
             TrailerApp.getInstance().mainTemplate.setClip(newClip, index);
             isComplete = true;
         }

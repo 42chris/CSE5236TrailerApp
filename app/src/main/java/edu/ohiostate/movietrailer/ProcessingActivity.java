@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Process;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -52,6 +53,7 @@ public class ProcessingActivity extends Activity {
     private Template movieTemplate;
     private int currentClipIndex;
     private Fragment currentFragment;
+    private Button shootVideoButton;
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
@@ -62,31 +64,47 @@ public class ProcessingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
-        setContentView(R.layout.processing_screen);
+        setContentView(R.layout.fragment_video);
 
         movieTemplate = TrailerApp.getInstance().mainTemplate;
-
-        ArrayList<Clip> clipArray = movieTemplate.clipArray;
-        for (int i =0 ; i<clipArray.size();i++) {
-            if (!clipArray.get(i).isCreated()){
-                Intent intentPromptActivity = new Intent(getApplicationContext(),PromptActivity.class);
-                intentPromptActivity.putExtra("index",i);
-                startActivity(intentPromptActivity);
+        shootVideoButton = (Button) findViewById(R.id.go_button);
+        shootVideoButton.setEnabled(true);
+        shootVideoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i =0 ; i<movieTemplate.clipArray.size();i++) {
+                    if (!movieTemplate.clipArray.get(i).isCreated() && !movieTemplate.promptArray.isEmpty()){
+                        Prompt poppedPrompt = TrailerApp.getInstance().mainTemplate.getPromptArray().remove();
+                        Intent intentPromptActivity = new Intent(ProcessingActivity.this,PromptActivity.class);
+                        intentPromptActivity.putExtra("question",poppedPrompt.getQuestion());
+                        intentPromptActivity.putExtra("index",i);
+                        i = movieTemplate.clipArray.size();
+                        startActivity(intentPromptActivity);
+                    }
+                }
             }
-        }
+        });
+
 
         boolean process = true;
-        for (Clip c:clipArray){
+        for (Clip c:movieTemplate.clipArray){
             if (!c.isCreated()){
                 process = false;
             }
         }
         if (process){
-            processClips(clipArray);
+            Toast.makeText(ProcessingActivity.this,"Processing",Toast.LENGTH_LONG).show();
+            processClips(movieTemplate.clipArray);
+            Toast.makeText(ProcessingActivity.this,"Processing done.",Toast.LENGTH_LONG).show();
         }
 
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        movieTemplate = TrailerApp.getInstance().mainTemplate;
     }
 
     public int getCurrentClipIndex(){
@@ -174,8 +192,27 @@ public class ProcessingActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(TAG,"onResume() called");
-
+//        Log.d(TAG,"onResume() called");
+//        movieTemplate = TrailerApp.getInstance().mainTemplate;
+//
+//        ArrayList<Clip> clipArray = movieTemplate.clipArray;
+//        for (int i =0 ; i<clipArray.size();i++) {
+//            if (!clipArray.get(i).isCreated()){
+//                Intent intentPromptActivity = new Intent(getApplicationContext(),PromptActivity.class);
+//                intentPromptActivity.putExtra("index",i);
+//                startActivity(intentPromptActivity);
+//            }
+//        }
+//
+//        boolean process = true;
+//        for (Clip c:clipArray){
+//            if (!c.isCreated()){
+//                process = false;
+//            }
+//        }
+//        if (process){
+//            processClips(clipArray);
+//        }
 
     }
 
