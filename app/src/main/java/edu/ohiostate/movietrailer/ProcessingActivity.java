@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Process;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -58,10 +59,15 @@ public class ProcessingActivity extends Activity {
     private int currentClipIndex;
     private Fragment currentFragment;
     private Button shootVideoButton;
+<<<<<<< Updated upstream
 
     ShareVideo share;
     ShareVideoContent content;
 
+=======
+    private String processingText;
+    private TextView processingDialogue;
+>>>>>>> Stashed changes
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
 //            new Prompt(R.string.genre_string,PromptType.TEXT)};
@@ -72,7 +78,8 @@ public class ProcessingActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.fragment_video);
-
+        processingDialogue = (TextView) findViewById(R.id.questionView);
+        processingDialogue.setText("Click Go to continue creating your trailer!");
         movieTemplate = TrailerApp.getInstance().mainTemplate;
         shootVideoButton = (Button) findViewById(R.id.go_button);
         shootVideoButton.setEnabled(true);
@@ -89,21 +96,26 @@ public class ProcessingActivity extends Activity {
                         startActivity(intentPromptActivity);
                     }
                 }
+                boolean process = true;
+                for (Clip c:movieTemplate.clipArray){
+                    if (!c.isCreated()){
+                        process = false;
+                    }
+                }
+                if (process){
+                    ArrayList<Clip> clipArray  = movieTemplate.clipArray;
+                    processingDialogue.setText("Processing Your Trailer Now...");
+                    shootVideoButton.setVisibility(View.INVISIBLE);
+                    shootVideoButton.setEnabled(false);
+                    processClips(clipArray);
+                    processingDialogue.setText("Processing Done");
+
+                }
             }
         });
 
 
-        boolean process = true;
-        for (Clip c:movieTemplate.clipArray){
-            if (!c.isCreated()){
-                process = false;
-            }
-        }
-        if (process){
-            Toast.makeText(ProcessingActivity.this,"Processing",Toast.LENGTH_LONG).show();
-            processClips(movieTemplate.clipArray);
-            Toast.makeText(ProcessingActivity.this,"Processing done.",Toast.LENGTH_LONG).show();
-        }
+
 
 
 
@@ -112,6 +124,7 @@ public class ProcessingActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         movieTemplate = TrailerApp.getInstance().mainTemplate;
+
     }
 
     public int getCurrentClipIndex(){
@@ -133,6 +146,13 @@ public class ProcessingActivity extends Activity {
             }
         }
         Movie result = new Movie();
+        if (!audioTracks.isEmpty()) {
+            try {
+                result.addTrack(new AppendTrack(audioTracks.toArray(new Track[audioTracks.size()])));
+            }catch(IOException e){
+                Log.d(TAG,"failed to append audio tracks");
+            }
+        }
         if (!videoTracks.isEmpty()) {
             try {
                 result.addTrack(new AppendTrack(videoTracks.toArray(new Track[videoTracks.size()])));
@@ -146,7 +166,7 @@ public class ProcessingActivity extends Activity {
 
         boolean writable = isExternalStorageWritable();
         try {
-            fc = new RandomAccessFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"output.mp4", "rw").getChannel();
+            fc = new RandomAccessFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"convert"+ SystemClock.elapsedRealtime()+".mp4", "rw").getChannel();
         }catch (FileNotFoundException e){
             Log.d(TAG,"File not found when appending Tracks");
         }

@@ -2,6 +2,7 @@ package edu.ohiostate.movietrailer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -74,10 +75,17 @@ public class PromptActivity extends Activity {
             shootVideoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    video_intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+                    video_intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
                     if (video_intent.resolveActivity(getPackageManager()) != null) {
                         startActivityForResult(video_intent, 1);
                     }
+//                    Intent video_intent = new Intent(getApplicationContext(),RecorderActivity.class);
+//                    if (video_intent.resolveActivity(getPackageManager()) != null){
+//                        startActivityForResult(video_intent, 1);
+//                    }
                     //startActivity(video_intent);
                 }
             });
