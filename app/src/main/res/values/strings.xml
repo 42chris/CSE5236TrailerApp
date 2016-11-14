@@ -16,6 +16,7 @@
     <string name="delete_account_button">Delete Account</string>
     <string name="logout_button">Logout</string>
     <string name="btnCapture">Capture</string>
+    <string name="shareButton">Share</string>
 
     <string-array name="genre_array">
         <item>Action</item>

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.coremedia.iso.boxes.Container;
 import com.facebook.share.model.ShareVideo;
 import com.facebook.share.model.ShareVideoContent;
+import com.facebook.share.widget.ShareButton;
 import com.googlecode.mp4parser.authoring.Movie;
 import com.googlecode.mp4parser.authoring.Track;
 import com.googlecode.mp4parser.authoring.builder.DefaultMp4Builder;
@@ -59,15 +60,15 @@ public class ProcessingActivity extends Activity {
     private int currentClipIndex;
     private Fragment currentFragment;
     private Button shootVideoButton;
-<<<<<<< Updated upstream
 
     ShareVideo share;
     ShareVideoContent content;
+    ShareButton shareButton;
 
-=======
+
     private String processingText;
     private TextView processingDialogue;
->>>>>>> Stashed changes
+
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
 //            new Prompt(R.string.genre_string,PromptType.TEXT)};
@@ -92,6 +93,7 @@ public class ProcessingActivity extends Activity {
                         Intent intentPromptActivity = new Intent(ProcessingActivity.this,PromptActivity.class);
                         intentPromptActivity.putExtra("question",poppedPrompt.getQuestion());
                         intentPromptActivity.putExtra("index",i);
+                        intentPromptActivity.putExtra("time",poppedPrompt.getLength());
                         i = movieTemplate.clipArray.size();
                         startActivity(intentPromptActivity);
                     }
@@ -107,8 +109,13 @@ public class ProcessingActivity extends Activity {
                     processingDialogue.setText("Processing Your Trailer Now...");
                     shootVideoButton.setVisibility(View.INVISIBLE);
                     shootVideoButton.setEnabled(false);
-                    processClips(clipArray);
+                    String filePath  = processClips(clipArray);
                     processingDialogue.setText("Processing Done");
+
+                    Intent intentPlayAndShare = new Intent(getApplicationContext(),FacebookActivity.class);
+                    intentPlayAndShare.putExtra("file",filePath);
+                    startActivity(intentPlayAndShare);
+
 
                 }
             }
@@ -131,7 +138,7 @@ public class ProcessingActivity extends Activity {
         return this.currentClipIndex;
     }
 
-    public void processClips(ArrayList<Clip> clipArray){
+    public String processClips(ArrayList<Clip> clipArray){
         List<Track> videoTracks = new LinkedList<Track>();
         List<Track> audioTracks = new LinkedList<Track>();
         for (Clip c: clipArray) {
@@ -163,10 +170,12 @@ public class ProcessingActivity extends Activity {
 
         Container out = new DefaultMp4Builder().build(result);
         FileChannel fc = null;
-
+        String videoPath = null;
         boolean writable = isExternalStorageWritable();
         try {
-            fc = new RandomAccessFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"convert"+ SystemClock.elapsedRealtime()+".mp4", "rw").getChannel();
+            videoPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"convert"+ SystemClock.elapsedRealtime()+".mp4";
+            fc = new RandomAccessFile(videoPath, "rw").getChannel();
+
         }catch (FileNotFoundException e){
             Log.d(TAG,"File not found when appending Tracks");
         }
@@ -183,16 +192,7 @@ public class ProcessingActivity extends Activity {
         }
 
 
-        Uri uri = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"output.mp4"));
-        share = new ShareVideo.Builder().setLocalUrl(uri).build();
-        content = new ShareVideoContent.Builder().setVideo(share).build();
 
-        MediaPlayer mp = new MediaPlayer();
-        try{
-            mp.setDataSource(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath()+"/"+"output.mp4");
-        }catch(IOException e){
-            Log.d(TAG, "Video failed to play");
-        }
 
 
 //        SharedPreferences settings  = getSharedPreferences(PREFS_NAME,0);
@@ -203,7 +203,7 @@ public class ProcessingActivity extends Activity {
 
 
 
-
+        return videoPath;
     }
 
     /* Checks if external storage is available for read and write */

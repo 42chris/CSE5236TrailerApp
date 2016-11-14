@@ -44,6 +44,8 @@
             android:name=".PromptActivity"/>
         <activity
             android:name=".SettingsActivity"/>
+        <activity
+            android:name=".FacebookActivity"/>
         <fragment
             android:name=".PromptFragment"/>
     </application>

@@ -45,6 +45,7 @@ public class PromptActivity extends Activity {
     private TextView question;
     private Button shootVideoButton;
     private String questionText;
+    private float timeLimit;
     private int index;
     private boolean isComplete;
     static final int REQUEST_VIDEO_CAPTURE = 1;
@@ -63,6 +64,7 @@ public class PromptActivity extends Activity {
         movieTemplate = TrailerApp.getInstance().mainTemplate;
         Intent mIntent = getIntent();
         int clipIndex = mIntent.getIntExtra("index",0);
+        timeLimit = mIntent.getFloatExtra("time",0);
         this.index = clipIndex;
         question = (TextView) findViewById(R.id.questionView);
         shootVideoButton = (Button) findViewById(R.id.go_button);
@@ -77,8 +79,8 @@ public class PromptActivity extends Activity {
                 public void onClick(View v) {
 
                     Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    video_intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
-                    video_intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                    video_intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, (int)timeLimit);
+//                    video_intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT,3*1024*1024);
                     if (video_intent.resolveActivity(getPackageManager()) != null) {
                         startActivityForResult(video_intent, 1);
                     }
