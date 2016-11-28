@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:weightSum="1">
+
+
+    <TextView
+
+        android:textCursorDrawable="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:gravity="left"
+        android:hint="@string/create_button"
+        android:singleLine="true"
+        android:layout_marginLeft="165dp"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+
+        android:textCursorDrawable="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:hint="@string/watch_button"
+        android:singleLine="true"
+        android:layout_gravity="right"
+        android:layout_marginRight="170dp"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text = "Profile"
+        android:background="#f36230"
+        android:layout_gravity="bottom|center_vertical|center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp" />
+
+    <ImageButton
+        android:id="@+id/watch_button"
+        android:layout_width="182dp"
+        android:layout_height="122dp"
+        android:padding="20dp"
+        android:src="@mipmap/clapper_logo"
+        android:background="?attr/colorBackgroundFloating"
+        android:elevation="8dp"
+        android:scaleType="centerCrop"
+        android:layout_weight="0.00"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="300dp"
+        android:translationX="0dp" />
+
+    <ImageButton
+        android:id="@+id/create_button"
+        android:layout_width="157dp"
+        android:layout_height="118dp"
+        android:padding="20dp"
+        android:src="@mipmap/scissors"
+        android:background="?attr/colorBackgroundFloating"
+        android:elevation="0dp"
+        android:scaleType="centerCrop"
+        android:layout_weight="0.05"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="120dp" />
+
+</FrameLayout>

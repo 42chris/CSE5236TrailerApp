@@ -1,1 +1,2 @@
 action test test test TESTC
+rom-com p1 p2 p1 TESTC

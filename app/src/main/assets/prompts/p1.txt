@@ -1,7 +1,3 @@
-video "Take a video of Actor 1 picking something up" none 3.00
-text "Type in your favorite movie" none 3.00
-video "Take a panning video of a setting" none 2.00
-video "Take video of Actor 1 staring into distance" none 3.00
-text "Type in Actor 1's name" none 2.09
-video "Take video of Actor 1 Opening Door" none 1.22
-video "Take Video of Actor 2 smiling sitting down" none 2.00
+video Take_a_video_of_Actor_1_picking_something_up none 3.00
+video Take_a_panning_video_of_a_setting none 2.00
+video Take_video_of_Actor_1_staring_into_distance none 3.00

@@ -113,6 +113,7 @@ public class Clip implements Serializable{
         cursor.moveToFirst();
         String result = cursor.getString(column_index);
         cursor.close();
+        this.path = result;
         return result;
     }
 
@@ -123,6 +124,9 @@ public class Clip implements Serializable{
 
     public boolean isCreated(){
         return this.created;
+    }
+    public void unCreate(){
+        this.created =false;
     }
     public String getPath(){
         return this.path;

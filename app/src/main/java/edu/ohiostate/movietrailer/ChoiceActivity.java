@@ -3,6 +3,7 @@ package edu.ohiostate.movietrailer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import android.widget.Toast;
  * Created by andrewpetrilla on 10/29/16.
  */
 
-public class ChoiceActivity extends Activity {
+public class ChoiceActivity extends AppCompatActivity {
 
     private ImageButton mCreateButton;
     private ImageButton mGalleryButton;

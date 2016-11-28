@@ -8,6 +8,7 @@
     android:weightSum="1"
     android:baselineAligned="false">
 
+
     <ImageView
         android:id= "@+id/clapper_icon"
         android:layout_width="154dp"

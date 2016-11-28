@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.Spinner;
 import android.widget.VideoView;
 
 import com.facebook.share.model.ShareVideo;
 import com.facebook.share.model.ShareVideoContent;
+import com.facebook.share.widget.ShareButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,14 +27,16 @@ import java.io.IOException;
 /**
  * Created by Chris on 11/7/2016.
  */
-public class FacebookActivity extends Activity {
+public class FacebookActivity extends AppCompatActivity {
 
     Uri videoFileUri;
     ShareVideo share;
     ShareVideoContent content;
-    Button shareButton;
+    ShareButton shareButton;
     private VideoView videoView;
     private MediaController mediaController;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
     private int position = 0;
 
     private static final String TAG = "FacebookActivity";
@@ -52,11 +60,12 @@ public class FacebookActivity extends Activity {
             // Set MediaController for VideoView
             videoView.setMediaController(mediaController);
         }
-        shareButton = (Button) findViewById(R.id.shareButton);
+        shareButton = (ShareButton) findViewById(R.id.shareButton);
+
         Uri uri = Uri.fromFile(new File(filePath));
         share = new ShareVideo.Builder().setLocalUrl(uri).build();
         content = new ShareVideoContent.Builder().setVideo(share).build();
-
+        shareButton.setShareContent(content);
             videoView.setVideoPath(filePath);
 
         videoView.requestFocus();
@@ -85,13 +94,40 @@ public class FacebookActivity extends Activity {
         });
 
 
-        shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.choose_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
+                startActivity(intentMainMenu);
+                return true;
+
+            case R.id.action_profile:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                Intent intentSettings = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intentSettings);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     // When you change direction of phone, this method will be called.
@@ -114,6 +150,12 @@ public class FacebookActivity extends Activity {
         // Get saved position.
         position = savedInstanceState.getInt("CurrentPosition");
         videoView.seekTo(position);
+    }
+
+    private void addDrawerItems() {
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
     }
 
     @Override

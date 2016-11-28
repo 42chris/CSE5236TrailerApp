@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainMenuActivity extends Activity {
+public class MainMenuActivity extends AppCompatActivity {
 
     private ImageButton mnewTrailerButton;
     private Button msettingsButton;

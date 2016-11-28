@@ -1,0 +1,3 @@
+video Take_a_video_of_Actor_2_picking_something_up none 3.00
+video Take_a_video_of_Actor_1_and_Actor_2_shaking_hands none 2.00
+video Take_video_of_Actor_1_staring_into_distance none 3.00

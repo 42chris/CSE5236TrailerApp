@@ -1,5 +1,7 @@
 package edu.ohiostate.movietrailer;
 
+import java.util.ArrayList;
+
 /**
  * Created by petri on 10/11/2016.
  */
@@ -7,6 +9,7 @@ public class UserProfile {
 
     private String mUsername;
     private String mPassword;
+    private ArrayList<String> createdVideos;
     private long mId;
 
     public UserProfile(String user, String p_word){

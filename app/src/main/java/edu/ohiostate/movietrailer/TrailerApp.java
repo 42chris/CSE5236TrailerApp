@@ -20,6 +20,7 @@ public class TrailerApp extends Application {
     public String user;
     public int numActors;
     public Uri testVideoUri;
+    public UserProfile profile;
 
     public TrailerApp() {
     }

@@ -10,6 +10,7 @@
     <string name="watch_button">Watch</string>
     <string name="genre_string">Genre</string>
     <string name="go_button">Go</string>
+    <string name="save">Save To Gallery</string>
     <string name="actor_number"># Of Actors</string>
     <string name="processing">Processing...</string>
     <string name="facebook_app_id">1209265295786931</string>
@@ -17,6 +18,8 @@
     <string name="logout_button">Logout</string>
     <string name="btnCapture">Capture</string>
     <string name="shareButton">Share</string>
+    <string name= "profile">Profile</string>
+    <string name= "settings">Settings</string>
 
     <string-array name="genre_array">
         <item>Action</item>

@@ -25,6 +25,7 @@ public void onCreate(SQLiteDatabase _db)
     _db.execSQL(SSDataBaseAdapter.CLIPS_TEST_CREATE);
     _db.execSQL(SSDataBaseAdapter.TEMPLATE_CREATE);
     _db.execSQL(SSDataBaseAdapter.PROMPT_TEST_CREATE);
+    _db.execSQL(SSDataBaseAdapter.PROMPT_P1_CREATE);
 
 }
     // Called when there is a database version mismatch meaning that the version

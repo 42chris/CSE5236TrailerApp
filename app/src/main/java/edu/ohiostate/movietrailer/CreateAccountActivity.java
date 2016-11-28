@@ -6,13 +6,14 @@ package edu.ohiostate.movietrailer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateAccountActivity extends Activity
+public class CreateAccountActivity extends AppCompatActivity
 {
     EditText editTextUserName,editTextPassword,editTextConfirmPassword;
     Button btnCreateAccount;

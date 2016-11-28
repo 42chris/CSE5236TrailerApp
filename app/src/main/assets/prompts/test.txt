@@ -1,3 +1,3 @@
 video Take_a_panning_video_of_a_setting null 2.00
 video Take_video_of_Actor_1_Opening_Door none 1.22
-video Take_Video_of_Actor_2_smiling_sitting_down none 2.00
+video Take_video_of_Actor_1_staring_into_distance none 3.00

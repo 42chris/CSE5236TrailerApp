@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity = "center"
-    android:orientation = "vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
     android:background="#ffffff"
     android:weightSum="1">
+
 
     <TextView
 
@@ -17,6 +19,7 @@
         android:gravity="left"
         android:hint="@string/create_button"
         android:singleLine="true" />
+
     <ImageButton
         android:id="@+id/create_button"
         android:layout_width="151dp"
@@ -28,6 +31,7 @@
         android:elevation="0dp"
         android:scaleType="centerCrop"
         android:layout_weight="0.05" />
+
     <TextView
 
         android:textCursorDrawable="@null"
@@ -55,7 +59,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
-        android:text = "Settings"
+        android:text = "Profile"
         android:background="#f36230"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp" />

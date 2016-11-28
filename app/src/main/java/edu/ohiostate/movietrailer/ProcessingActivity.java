@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,9 +17,13 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,7 +49,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProcessingActivity extends Activity {
+public class ProcessingActivity extends AppCompatActivity {
 
 
     public static final String PREFS_NAME = "MyPrefsFile";
@@ -83,6 +88,9 @@ public class ProcessingActivity extends Activity {
         processingDialogue.setText("Click Go to continue creating your trailer!");
         movieTemplate = TrailerApp.getInstance().mainTemplate;
         shootVideoButton = (Button) findViewById(R.id.go_button);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         shootVideoButton.setEnabled(true);
         shootVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +199,19 @@ public class ProcessingActivity extends Activity {
             Log.d(TAG,"File failed to close");
         }
 
-
+        for (Clip c: clipArray ){
+            if (c.isCreated()){
+                String clipPath = c.getPath();
+                File fdelete = new File(clipPath);
+                if (fdelete.exists()) {
+                    if (fdelete.delete()) {
+                        System.out.println("file Deleted :" + clipPath);
+                    } else {
+                        System.out.println("file not Deleted :" + clipPath);
+                    }
+                }
+            }
+        }
 
 
 
@@ -218,6 +238,71 @@ public class ProcessingActivity extends Activity {
 //    public boolean checkLogin(){
 //
 //    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.choose_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
+                startActivity(intentMainMenu);
+                return true;
+
+            case R.id.action_profile:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                Intent intentSettings = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intentSettings);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Continue Or Not");
+        builder.setMessage("Do you want to leave and discard your progress? ");
+        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        builder.setNegativeButton("Leave", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                for (Clip c: movieTemplate.clipArray ){
+                    if (c.isCreated()){
+                        String clipPath = c.getPath();
+                        File fdelete = new File(clipPath);
+                        if (fdelete.exists()) {
+                            if (fdelete.delete()) {
+                                System.out.println("file Deleted :" + clipPath);
+                            } else {
+                                System.out.println("file not Deleted :" + clipPath);
+                            }
+                        }
+                    }
+                    c.unCreate();
+                }
+                ProcessingActivity.super.onBackPressed();
+            }
+        });
+        builder.show();
+    }
 
     @Override
     public void onStart(){

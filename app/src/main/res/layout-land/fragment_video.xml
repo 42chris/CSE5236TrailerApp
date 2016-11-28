@@ -17,13 +17,12 @@
 
     <TextView
         android:text="@string/processing"
-        android:layout_width="339dp"
-        android:layout_height="327dp"
+        android:layout_width="524dp"
+        android:layout_height="187dp"
         android:id="@+id/questionView"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:paddingTop="10dp"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_weight="0.19"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="20dp" />
 

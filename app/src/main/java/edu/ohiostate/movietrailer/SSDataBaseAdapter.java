@@ -33,6 +33,8 @@ public class SSDataBaseAdapter
 
     static final String PROMPT_TEST_CREATE = "create table "+"test"+
             "( " +"ID"+" integer primary key autoincrement,"+ "TYPE  text,QUESTION text,CHOICES text, LENGTH real); ";
+    static final String PROMPT_P1_CREATE = "create table "+"p1"+
+            "( " +"ID"+" integer primary key autoincrement,"+ "TYPE  text,QUESTION text,CHOICES text, LENGTH real); ";
     static final String CLIPS_TEST_CREATE = "create table "+"TESTC"+
             "( " +"ID"+" integer primary key autoincrement,"+ "CREATED  integer,FILEPATH text); ";
 
