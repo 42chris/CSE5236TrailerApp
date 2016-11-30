@@ -19,6 +19,8 @@ public class MainMenuActivity extends AppCompatActivity {
     private ImageButton mnewTrailerButton;
     private Button msettingsButton;
 
+    private ImageButton galleryButton;
+
     private static final String TAG = "MainMenuActivity";
 
     private  int mCurrentIndex = 0;
@@ -33,6 +35,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
         mnewTrailerButton = (ImageButton)findViewById(R.id.create_button);
         msettingsButton = (Button)findViewById(R.id.settings_button);
+        galleryButton = (ImageButton) findViewById(R.id.watch_button) ;
+
         mnewTrailerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +44,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 //Intent video_intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 //startActivity(video_intent);
 
-                Intent intentCreateAccount = new Intent(getApplicationContext(),ChooseGenreActivity.class);
+                Intent intentCreateAccount = new Intent(getApplicationContext(),NameMovieActivity.class);
                 startActivity(intentCreateAccount);
             }
         });
@@ -52,6 +56,16 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(intentSettings);
             }
         });
+
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentSettings = new Intent(getApplicationContext(), GalleryActivity.class);
+                startActivity(intentSettings);
+            }
+        });
+
+
 
     }
 

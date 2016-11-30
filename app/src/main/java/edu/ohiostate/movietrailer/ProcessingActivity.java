@@ -91,6 +91,7 @@ public class ProcessingActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("Movie Trailer : "+TrailerApp.getInstance().mainTemplate.getName());
         shootVideoButton.setEnabled(true);
         shootVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,7 +299,9 @@ public class ProcessingActivity extends AppCompatActivity {
                     }
                     c.unCreate();
                 }
-                ProcessingActivity.super.onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         builder.show();

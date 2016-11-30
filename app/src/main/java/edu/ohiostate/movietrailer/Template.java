@@ -21,6 +21,7 @@ public class Template{
 
     private String genre = "";
     int numPlayers = 0;
+    private String movieName = "";
     Queue<Prompt> promptArray;
     ArrayList<Clip> clipArray;
     SSDataBaseAdapter mSSDataBaseAdapter;
@@ -56,6 +57,15 @@ public class Template{
     public Queue<Prompt> getPromptArray(){
         return this.promptArray;
     }
+
+    public void setName (String name){
+        movieName = name;
+    }
+
+    public String getName (){
+        return movieName;
+    }
+
 
 
 }

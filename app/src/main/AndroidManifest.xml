@@ -46,6 +46,10 @@
             android:name=".SettingsActivity"/>
         <activity
             android:name=".FacebookActivity"/>
+        <activity
+            android:name=".NameMovieActivity"/>
+        <activity
+            android:name=".GalleryActivity"/>
         <fragment
             android:name=".PromptFragment"/>
     </application>

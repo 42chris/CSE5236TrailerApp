@@ -16,6 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     Button btnDelete;
     Button btnLogout;
+    Button btnGallery;
     LoginDataBaseAdapter mLoginDataBaseAdaptor;
     private static final String SHARED_PREFS_NAME = "mySharedPrefs";
     private static final String SHARED_PREFS_CURRENT_USER = "currentUser";
@@ -59,6 +60,16 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intentLogout);
             }
         });
+
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentGallery = new Intent(getApplicationContext(),GalleryActivity.class);
+                startActivity(intentGallery);
+            }
+        });
+
+
 
     }
 }

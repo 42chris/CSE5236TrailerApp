@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,9 @@ public class FacebookActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private int position = 0;
+    private Button saveToGallery;
+    private String filePath;
+    ProfileDataBaseAdapter profileDataBaseAdapter;
 
     private static final String TAG = "FacebookActivity";
 
@@ -45,10 +49,15 @@ public class FacebookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_and_share);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
+        getSupportActionBar().setTitle("Movie Trailer : "+TrailerApp.getInstance().mainTemplate.getName());
         Intent mIntent = getIntent();
-        String filePath = mIntent.getStringExtra("file");
+        filePath = mIntent.getStringExtra("file");
         videoView = (VideoView) findViewById(R.id.videoView);
+
+        saveToGallery = (Button) findViewById(R.id.save_button);
 
         if (mediaController == null) {
             mediaController = new MediaController(FacebookActivity.this);
@@ -93,6 +102,18 @@ public class FacebookActivity extends AppCompatActivity {
             }
         });
 
+        profileDataBaseAdapter = new ProfileDataBaseAdapter(this);
+        profileDataBaseAdapter = profileDataBaseAdapter.open();
+
+        saveToGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profileDataBaseAdapter.insertEntry(TrailerApp.getInstance().user,TrailerApp.getInstance().mainTemplate.getName(),filePath);
+                profileDataBaseAdapter.close();
+                Intent intentGallery = new Intent(getApplicationContext(),GalleryActivity.class);
+                startActivity(intentGallery);
+            }
+            });
 
 
 

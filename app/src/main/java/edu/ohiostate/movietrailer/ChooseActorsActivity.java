@@ -1,8 +1,10 @@
 package edu.ohiostate.movietrailer;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -47,6 +49,7 @@ public class ChooseActorsActivity extends AppCompatActivity {
         movieTemplate = TrailerApp.getInstance().mainTemplate;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("Movie Trailer : "+TrailerApp.getInstance().mainTemplate.getName());
         spinner = (Spinner) findViewById(R.id.spinnerActor);
         mGoButton = (Button)findViewById(R.id.go_button);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -122,6 +125,28 @@ public class ChooseActorsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Continue Or Not");
+        builder.setMessage("Do you want to leave and discard your progress? ");
+        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        builder.setNegativeButton("Leave", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+        builder.show();
     }
 
     @Override

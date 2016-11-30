@@ -47,6 +47,7 @@ public class LoginActivity extends Activity {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         String currentUser = prefs.getString(SHARED_PREFS_CURRENT_USER, null);
         if(currentUser != null){
+            TrailerApp.getInstance().user = currentUser;
             Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
             startActivity(intentMainMenu);
         }

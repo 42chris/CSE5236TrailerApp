@@ -69,6 +69,8 @@ public class PromptActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_video);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setTitle("Movie Trailer : "+TrailerApp.getInstance().mainTemplate.getName());
         movieTemplate = TrailerApp.getInstance().mainTemplate;
         Intent mIntent = getIntent();
         int clipIndex = mIntent.getIntExtra("index",0);
@@ -155,7 +157,7 @@ public class PromptActivity extends AppCompatActivity {
 
             }
         });
-        builder.setNegativeButton("Leave", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Leave and Discard", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 for (Clip c: movieTemplate.clipArray ){
                     if (c.isCreated()){
@@ -171,7 +173,9 @@ public class PromptActivity extends AppCompatActivity {
                     }
                     c.unCreate();
                 }
-                PromptActivity.super.onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         builder.show();

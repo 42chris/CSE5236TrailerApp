@@ -19,6 +19,7 @@ public class CreateAccountActivity extends AppCompatActivity
     Button btnCreateAccount;
     private static final String TAG = "CreateAccountActivity";
     LoginDataBaseAdapter loginDataBaseAdapter;
+    ProfileDataBaseAdapter profileDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,6 +30,9 @@ public class CreateAccountActivity extends AppCompatActivity
         // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(this);
         loginDataBaseAdapter=loginDataBaseAdapter.open();
+
+        profileDataBaseAdapter = new ProfileDataBaseAdapter(this);
+        profileDataBaseAdapter = profileDataBaseAdapter.open();
 
         // Get Refferences of Views
         editTextUserName=(EditText)findViewById(R.id.new_username_text);
@@ -61,6 +65,7 @@ public class CreateAccountActivity extends AppCompatActivity
                 {
                     // Save the Data in Database
                     loginDataBaseAdapter.insertEntry(userName, password);
+                    profileDataBaseAdapter.createTable(userName);
                     Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
                     CreateAccountActivity.this.finish();
                 }
@@ -73,6 +78,7 @@ public class CreateAccountActivity extends AppCompatActivity
         super.onDestroy();
 
         loginDataBaseAdapter.close();
+        profileDataBaseAdapter.close();
         Log.d(TAG,"onDestroy() called");
     }
     @Override
