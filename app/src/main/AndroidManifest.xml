@@ -33,8 +33,6 @@
         <activity
             android:name=".MainMenuActivity"/>
         <activity
-            android:name=".ChoiceActivity"/>
-        <activity
             android:name=".ChooseActorsActivity"/>
         <activity
             android:name=".ChooseGenreActivity"/>
@@ -50,8 +48,6 @@
             android:name=".NameMovieActivity"/>
         <activity
             android:name=".GalleryActivity"/>
-        <fragment
-            android:name=".PromptFragment"/>
     </application>
 
 </manifest>

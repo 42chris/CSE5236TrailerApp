@@ -23,16 +23,13 @@ import android.widget.Spinner;
 public class ChooseActorsActivity extends AppCompatActivity {
 
 
-    Spinner spinner;
+    private Spinner spinner;
     private Button mGoButton;
     private int numActors;
     private Template movieTemplate;
-    public static final String PREFS_NAME = "MyPrefsFile";
 
     SSDataBaseAdapter mSSDataBaseAdapter;
 
-    private static final String TAG = "ChooseActorsActivity";
-    public static final String MOVIE_TEMPLATE = "MyMovie";
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),
@@ -42,7 +39,6 @@ public class ChooseActorsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.num_actors);
         numActors = 0;
         //Get movie template from Genre activity
@@ -153,31 +149,26 @@ public class ChooseActorsActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d(TAG,"onStart() called");
     }
     @Override
     public void onPause(){
         super.onPause();
-        Log.d(TAG,"onPause() called");
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(TAG,"onResume() called");
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(TAG,"onStop() called");
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         mSSDataBaseAdapter.close();
-        Log.d(TAG,"onDestroy() called");
     }
 
 

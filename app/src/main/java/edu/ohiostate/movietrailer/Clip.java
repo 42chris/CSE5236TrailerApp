@@ -35,7 +35,7 @@ import org.apache.commons.io.IOUtils;
  * Created by andrewpetrilla on 10/29/16.
  */
 
-public class Clip implements Serializable{
+public class Clip {
 
     private String clipID = "CLIP";
     private String path;
@@ -43,8 +43,6 @@ public class Clip implements Serializable{
     private Movie h264Track;
     private Context context;
 
-    public static final String PREFIX = "stream2file";
-    public static final String SUFFIX = ".mp4";
 
     public Clip(String path, Context _context){
         this.path = path;
@@ -61,7 +59,7 @@ public class Clip implements Serializable{
     }
 
     private File stream2file (InputStream in) throws IOException {
-        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
+        final File tempFile = File.createTempFile("stream2file", ".mp4");
         tempFile.deleteOnExit();
         try (FileOutputStream out = new FileOutputStream(tempFile)) {
             IOUtils.copy(in, out);
@@ -84,9 +82,7 @@ public class Clip implements Serializable{
         }
         try {
             this.h264Track = MovieCreator.build(new FileDataSourceImpl(testFile));
-            Log.d("Clip"+clipID,"*******************************CREATED H264 Track!*************************************\n\n\n*************************************\n\n");
         }catch(IOException e){
-            Log.d("Clip"+clipID,"File not Found. video not added to Clip object");
         }
     }
 
@@ -98,9 +94,9 @@ public class Clip implements Serializable{
         if (isExternalStorageReadable()) {
             try {
                 this.h264Track = MovieCreator.build(new FileDataSourceImpl(testFile));
-                Log.d("Clip" + clipID, "*******************************CREATED H264 Track!*************************************\n\n\n*************************************\n\n");
+                //Log.d("Clip" + clipID, "*******************************CREATED H264 Track!*************************************\n\n\n*************************************\n\n");
             } catch (IOException e) {
-                Log.d("Clip" + clipID, "File not Found. video not added to Clip object");
+                //Log.d("Clip" + clipID, "File not Found. video not added to Clip object");
             }
         }
     }
@@ -183,6 +179,7 @@ public boolean isExternalStorageReadable() {
     }
     return false;
 }
+
 
 }
 

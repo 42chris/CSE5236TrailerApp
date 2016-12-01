@@ -30,16 +30,14 @@ import java.io.Serializable;
 public class ChooseGenreActivity extends AppCompatActivity {
 
 
-    Spinner spinner;
+    private Spinner spinner;
     private Button mGoButton;
     private String genre;
     private Template movieTemplate;
 
-    public static final String MOVIE_TEMPLATE = "MyMovie";
 
     SSDataBaseAdapter mSSDataBaseAdapter;
 
-    private static final String TAG = "ChooseGenreActivity";
 
     //    private Prompt[] mPromptBank = new Prompt[]{
 //            new Prompt(R.string.new_account,PromptType.TEXT),

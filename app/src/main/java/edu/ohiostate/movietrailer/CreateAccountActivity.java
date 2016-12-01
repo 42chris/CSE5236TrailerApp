@@ -15,11 +15,11 @@ import android.widget.Toast;
 
 public class CreateAccountActivity extends AppCompatActivity
 {
-    EditText editTextUserName,editTextPassword,editTextConfirmPassword;
-    Button btnCreateAccount;
+    private EditText editTextUserName,editTextPassword,editTextConfirmPassword;
+    private Button btnCreateAccount;
     private static final String TAG = "CreateAccountActivity";
-    LoginDataBaseAdapter loginDataBaseAdapter;
-    ProfileDataBaseAdapter profileDataBaseAdapter;
+    private LoginDataBaseAdapter loginDataBaseAdapter;
+    private ProfileDataBaseAdapter profileDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
