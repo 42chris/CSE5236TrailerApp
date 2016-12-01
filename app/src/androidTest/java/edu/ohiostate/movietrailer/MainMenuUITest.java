@@ -19,7 +19,7 @@ public class MainMenuUITest extends ActivityInstrumentationTestCase2 <MainMenuAc
     private SettingsActivity settingsActivity;
 
     public MainMenuUITest(){
-        super("edu.ohiostate.movietrailer.LoginActivity", MainMenuActivity.class);
+        super("edu.ohiostate.movietrailer.MainMenuActivity", MainMenuActivity.class);
     }
 
     protected void setUp() throws Exception {
