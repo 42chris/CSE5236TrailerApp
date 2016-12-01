@@ -32,4 +32,9 @@ public class TrailerApp extends Application {
         FacebookSdk.sdkInitialize((getApplicationContext()));
         AppEventsLogger.activateApp(this);
     }
+
+    public void setUser(String userName){
+        user = userName;
+    }
+    public String getUser(){return user;}
 }

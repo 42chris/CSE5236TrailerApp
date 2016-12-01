@@ -53,7 +53,7 @@
         android:padding="20dp"
         android:src="@mipmap/clapper_logo"
         android:background="?attr/colorBackgroundFloating"
-        android:elevation="8dp"
+        android:elevation="0dp"
         android:scaleType="centerCrop"
         android:layout_weight="0.00"
         android:layout_gravity="center_vertical"

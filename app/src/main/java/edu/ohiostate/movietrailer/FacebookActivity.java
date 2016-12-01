@@ -108,10 +108,11 @@ public class FacebookActivity extends AppCompatActivity {
         saveToGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileDataBaseAdapter.insertEntry(TrailerApp.getInstance().user,TrailerApp.getInstance().mainTemplate.getName(),filePath);
+                profileDataBaseAdapter.insertEntry(TrailerApp.getInstance().getUser(),TrailerApp.getInstance().mainTemplate.getName(),filePath);
                 profileDataBaseAdapter.close();
                 Intent intentGallery = new Intent(getApplicationContext(),GalleryActivity.class);
                 startActivity(intentGallery);
+                finish();
             }
             });
 

@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         mLoginDataBaseAdaptor = new LoginDataBaseAdapter(this.getApplicationContext());
         btnDelete = (Button)findViewById(R.id.delete_account_button);
         btnLogout = (Button)findViewById(R.id.logout_button);
-
+        btnGallery = (Button) findViewById(R.id.gallery_button);
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +66,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentGallery = new Intent(getApplicationContext(),GalleryActivity.class);
                 startActivity(intentGallery);
+                finish();
             }
         });
 

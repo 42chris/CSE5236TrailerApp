@@ -59,11 +59,13 @@ public class NameMovieActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 movieTemplate = new Template(genre,mSSDataBaseAdapter);
-                movieTemplate.setName(movieName.getText().toString());
+                String retrieve = movieName.getText().toString();
+                movieTemplate.setName(retrieve);
                 TrailerApp.getInstance().mainTemplate = movieTemplate;
                 Log.d(TAG, "CHECK: " + movieTemplate.clipArray.size());
                 Intent intentChooseActors = new Intent(getApplicationContext(),ChooseGenreActivity.class);
                 startActivity(intentChooseActors);
+                finish();
             }
         });
 

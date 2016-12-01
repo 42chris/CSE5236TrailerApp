@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -20,12 +19,11 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <TextView
-        android:text="Choose Your Trailer!"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:textSize="36sp"
-        android:layout_weight="0.02"
+        android:text="Choose Your Trailer!"
+        android:textSize="30sp"
         android:textAlignment="center"
         android:layout_marginTop="10dp" />
 
@@ -35,17 +33,16 @@
         android:id="@+id/gallery_list"
         android:gravity="center_vertical|start"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.06" />
+        android:layout_marginTop="10dp" />
     <VideoView
-        android:layout_width="335dp"
-        android:layout_height="185dp"
+        android:layout_width="332dp"
+        android:layout_height="175dp"
         android:id="@+id/videoView"
         android:paddingBottom="0dp"
         android:paddingTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_margin="50dp" />
+        android:layout_marginBottom="0dp"
+        android:layout_margin="0dp" />
 
     <com.facebook.share.widget.ShareButton
         android:text="@string/com_facebook_share_button_text"
@@ -53,6 +50,6 @@
         android:layout_height="44dp"
         android:id="@+id/shareButton"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="100dp" />
 </LinearLayout>

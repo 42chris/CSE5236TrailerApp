@@ -84,6 +84,7 @@ public class ChooseActorsActivity extends AppCompatActivity {
                 Intent intentProcessing = new Intent(getApplicationContext(),ProcessingActivity.class);
 
                 startActivity(intentProcessing);
+                finish();
             }
         });
 

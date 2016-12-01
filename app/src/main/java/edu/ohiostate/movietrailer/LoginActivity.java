@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         String currentUser = prefs.getString(SHARED_PREFS_CURRENT_USER, null);
         if(currentUser != null){
-            TrailerApp.getInstance().user = currentUser;
+            TrailerApp.getInstance().setUser(currentUser);
             Intent intentMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
             startActivity(intentMainMenu);
         }
@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
                 String storedPassword = mLoginDataBaseAdapter.getSingleEntry(userName);
 
                 if (password.equals(storedPassword)){
-                    TrailerApp.getInstance().user = userName;
+                    TrailerApp.getInstance().setUser(userName);
 
                     SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putString(SHARED_PREFS_CURRENT_USER, userName);

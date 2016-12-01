@@ -44,7 +44,7 @@ public class GalleryActivity extends AppCompatActivity {
     private VideoView videoView;
     private MediaController mediaController;
     private ArrayAdapter<String> mAdapter;
-    private int position = 0;
+    public int position = 0;
     private String filePath;
     private boolean selected;
     private String userName;
@@ -64,14 +64,24 @@ public class GalleryActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        userName = TrailerApp.getInstance().user;
+        userName = TrailerApp.getInstance().getUser();
         galleryList = (Spinner) findViewById(R.id.gallery_list);
-        deleteButton = (Button) findViewById(R.id.delete_video_button);
-
+        videoView = (VideoView) findViewById(R.id.videoView);
         getSupportActionBar().setTitle( userName+ "'s Trailer Gallery");
 
         profileDataBaseAdapter = new ProfileDataBaseAdapter(this);
         profileDataBaseAdapter = profileDataBaseAdapter.open();
+
+        if (mediaController == null) {
+            mediaController = new MediaController(GalleryActivity.this);
+
+            // Set the videoView that acts as the anchor for the MediaController.
+            mediaController.setAnchorView(videoView);
+
+
+            // Set MediaController for VideoView
+            videoView.setMediaController(mediaController);
+        }
 
         ArrayList<String> trailerNames = new ArrayList<String>();
         Cursor cursor2 = profileDataBaseAdapter.db.query(userName,null,null,null,null,null,null);
@@ -97,58 +107,58 @@ public class GalleryActivity extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,trailerNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        galleryList.setSelection(0);
         galleryList.setAdapter(adapter);
         galleryList.setOnItemSelectedListener((new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     selected= true;
-                    deleteButton.setEnabled(true);
                     shareButton.setEnabled(true);
                     filePath = profileDataBaseAdapter.getSingleEntry(userName,galleryList.getSelectedItem().toString());
+                Uri uri = Uri.fromFile(new File(filePath));
+                share = new ShareVideo.Builder().setLocalUrl(uri).build();
+                content = new ShareVideoContent.Builder().setVideo(share).build();
+                shareButton.setShareContent(content);
+
+                videoView.setVideoPath(filePath);
+                videoView.requestFocus();
+                // When the video file ready for playback.
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                    public void onPrepared(MediaPlayer mediaPlayer) {
+
+
+                        videoView.seekTo(getPosition());
+                        if (getPosition() == 0) {
+                            videoView.start();
+                        }
+
+                        // When video Screen change size.
+                        mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+                            @Override
+                            public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+
+                                // Re-Set the videoView that acts as the anchor for the MediaController
+                                mediaController.setAnchorView(videoView);
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selected = false;
-                deleteButton.setEnabled(false);
                 shareButton.setEnabled(false);
             }
         }));
 
-        if (selected) {
-            Uri uri = Uri.fromFile(new File(filePath));
-            share = new ShareVideo.Builder().setLocalUrl(uri).build();
-            content = new ShareVideoContent.Builder().setVideo(share).build();
-            shareButton.setShareContent(content);
-
-            videoView.setVideoPath(filePath);
-
-            videoView.requestFocus();
-
-            // When the video file ready for playback.
-            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-                public void onPrepared(MediaPlayer mediaPlayer) {
 
 
-                    videoView.seekTo(position);
-                    if (position == 0) {
-                        videoView.start();
-                    }
 
-                    // When video Screen change size.
-                    mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-                        @Override
-                        public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
 
-                            // Re-Set the videoView that acts as the anchor for the MediaController
-                            mediaController.setAnchorView(videoView);
-                        }
-                    });
-                }
-            });
-        }
+
+
 
 //        deleteButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -170,7 +180,31 @@ public class GalleryActivity extends AppCompatActivity {
 //
 //    }
 
+    // When you change direction of phone, this method will be called.
+    // It store the state of video (Current position)
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
 
+        // Store current position.
+        savedInstanceState.putInt("CurrentPosition", videoView.getCurrentPosition());
+        videoView.pause();
+    }
+
+    public int getPosition(){
+        return position;
+    }
+
+
+    // After rotating the phone. This method is called.
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Get saved position.
+        position = savedInstanceState.getInt("CurrentPosition");
+        videoView.seekTo(position);
+    }
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

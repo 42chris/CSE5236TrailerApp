@@ -49,7 +49,6 @@ public class ChooseGenreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.genre_choice);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -85,12 +84,14 @@ public class ChooseGenreActivity extends AppCompatActivity {
         mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String movieName = TrailerApp.getInstance().mainTemplate.getName();
                 movieTemplate = new Template(genre,mSSDataBaseAdapter);
                 movieTemplate.setClipArray();
+                movieTemplate.setName(movieName);
                 TrailerApp.getInstance().mainTemplate = movieTemplate;
-                Log.d(TAG, "CHECK: " + movieTemplate.clipArray.size());
                 Intent intentChooseActors = new Intent(getApplicationContext(),ChooseActorsActivity.class);
                 startActivity(intentChooseActors);
+                finish();
             }
         });
 
@@ -160,31 +161,26 @@ public class ChooseGenreActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d(TAG,"onStart() called");
     }
     @Override
     public void onPause(){
         super.onPause();
-        Log.d(TAG,"onPause() called");
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(TAG,"onResume() called");
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(TAG,"onStop() called");
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         mSSDataBaseAdapter.close();
-        Log.d(TAG,"onDestroy() called");
     }
 
 
